@@ -1,0 +1,111 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package cmd
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	"github.com/stainless-sdks/1231-cli/internal/apiquery"
+	"github.com/stainless-sdks/1231-cli/internal/requestflag"
+	"github.com/stainless-sdks/1231-go"
+	"github.com/stainless-sdks/1231-go/option"
+	"github.com/tidwall/gjson"
+	"github.com/urfave/cli/v3"
+)
+
+var sustainabilityPurchaseCarbonOffsets = cli.Command{
+	Name:  "purchase-carbon-offsets",
+	Usage: "Allows users to purchase carbon offsets to neutralize their estimated carbon\nfootprint, supporting environmental initiatives.",
+	Flags: []cli.Flag{
+		&requestflag.Flag[float64]{
+			Name:     "amount-kg-co2e",
+			BodyPath: "amountKgCO2e",
+		},
+		&requestflag.Flag[string]{
+			Name:     "payment-account-id",
+			BodyPath: "paymentAccountId",
+		},
+		&requestflag.Flag[string]{
+			Name:     "offset-project",
+			BodyPath: "offsetProject",
+		},
+	},
+	Action:          handleSustainabilityPurchaseCarbonOffsets,
+	HideHelpCommand: true,
+}
+
+var sustainabilityRetrieveCarbonFootprint = cli.Command{
+	Name:            "retrieve-carbon-footprint",
+	Usage:           "Generates a detailed report of the user's estimated carbon footprint based on\ntransaction data, lifestyle choices, and AI-driven impact assessments, offering\ninsights and reduction strategies.",
+	Flags:           []cli.Flag{},
+	Action:          handleSustainabilityRetrieveCarbonFootprint,
+	HideHelpCommand: true,
+}
+
+func handleSustainabilityPurchaseCarbonOffsets(ctx context.Context, cmd *cli.Command) error {
+	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	params := jamesburvelocallaghaniiicitibankdemobusinessinc.SustainabilityPurchaseCarbonOffsetsParams{}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		ApplicationJSON,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Sustainability.PurchaseCarbonOffsets(ctx, params, options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(os.Stdout, "sustainability purchase-carbon-offsets", obj, format, transform)
+}
+
+func handleSustainabilityRetrieveCarbonFootprint(ctx context.Context, cmd *cli.Command) error {
+	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	unusedArgs := cmd.Args().Slice()
+
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
+
+	options, err := flagOptions(
+		cmd,
+		apiquery.NestedQueryFormatBrackets,
+		apiquery.ArrayQueryFormatComma,
+		EmptyBody,
+		false,
+	)
+	if err != nil {
+		return err
+	}
+
+	var res []byte
+	options = append(options, option.WithResponseBodyInto(&res))
+	_, err = client.Sustainability.GetCarbonFootprint(ctx, options...)
+	if err != nil {
+		return err
+	}
+
+	obj := gjson.ParseBytes(res)
+	format := cmd.Root().String("format")
+	transform := cmd.Root().String("transform")
+	return ShowJSON(os.Stdout, "sustainability retrieve-carbon-footprint", obj, format, transform)
+}
