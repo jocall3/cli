@@ -1,4 +1,4 @@
-module github.com/jocall3/1231-cli
+module github.com/jocall3/cli
 
 go 1.25
 
@@ -9,7 +9,7 @@ require (
 	github.com/charmbracelet/x/term v0.2.1
 	github.com/goccy/go-yaml v1.18.0
 	github.com/itchyny/json2yaml v0.1.4
-	github.com/jocall3/go v0.1.0
+	github.com/jocall3/go v0.2.0
 	github.com/muesli/reflow v0.3.0
 	github.com/stretchr/testify v1.10.0
 	github.com/tidwall/gjson v1.18.0
