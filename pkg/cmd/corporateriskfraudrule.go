@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -129,14 +129,14 @@ var corporateRiskFraudRulesDelete = cli.Command{
 }
 
 func handleCorporateRiskFraudRulesCreate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateRiskFraudRuleNewParams{}
+	params := jocall3.CorporateRiskFraudRuleNewParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -163,7 +163,7 @@ func handleCorporateRiskFraudRulesCreate(ctx context.Context, cmd *cli.Command) 
 }
 
 func handleCorporateRiskFraudRulesUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("rule-id") && len(unusedArgs) > 0 {
 		cmd.Set("rule-id", unusedArgs[0])
@@ -173,7 +173,7 @@ func handleCorporateRiskFraudRulesUpdate(ctx context.Context, cmd *cli.Command) 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateRiskFraudRuleUpdateParams{}
+	params := jocall3.CorporateRiskFraudRuleUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -205,14 +205,14 @@ func handleCorporateRiskFraudRulesUpdate(ctx context.Context, cmd *cli.Command) 
 }
 
 func handleCorporateRiskFraudRulesList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateRiskFraudRuleListParams{}
+	params := jocall3.CorporateRiskFraudRuleListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -239,7 +239,7 @@ func handleCorporateRiskFraudRulesList(ctx context.Context, cmd *cli.Command) er
 }
 
 func handleCorporateRiskFraudRulesDelete(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("rule-id") && len(unusedArgs) > 0 {
 		cmd.Set("rule-id", unusedArgs[0])

@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -148,14 +148,14 @@ var investmentsPortfoliosRebalance = cli.Command{
 }
 
 func handleInvestmentsPortfoliosCreate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.InvestmentPortfolioNewParams{}
+	params := jocall3.InvestmentPortfolioNewParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -182,7 +182,7 @@ func handleInvestmentsPortfoliosCreate(ctx context.Context, cmd *cli.Command) er
 }
 
 func handleInvestmentsPortfoliosRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("portfolio-id") && len(unusedArgs) > 0 {
 		cmd.Set("portfolio-id", unusedArgs[0])
@@ -217,7 +217,7 @@ func handleInvestmentsPortfoliosRetrieve(ctx context.Context, cmd *cli.Command) 
 }
 
 func handleInvestmentsPortfoliosUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("portfolio-id") && len(unusedArgs) > 0 {
 		cmd.Set("portfolio-id", unusedArgs[0])
@@ -227,7 +227,7 @@ func handleInvestmentsPortfoliosUpdate(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.InvestmentPortfolioUpdateParams{}
+	params := jocall3.InvestmentPortfolioUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -259,14 +259,14 @@ func handleInvestmentsPortfoliosUpdate(ctx context.Context, cmd *cli.Command) er
 }
 
 func handleInvestmentsPortfoliosList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.InvestmentPortfolioListParams{}
+	params := jocall3.InvestmentPortfolioListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -293,7 +293,7 @@ func handleInvestmentsPortfoliosList(ctx context.Context, cmd *cli.Command) erro
 }
 
 func handleInvestmentsPortfoliosRebalance(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("portfolio-id") && len(unusedArgs) > 0 {
 		cmd.Set("portfolio-id", unusedArgs[0])
@@ -303,7 +303,7 @@ func handleInvestmentsPortfoliosRebalance(ctx context.Context, cmd *cli.Command)
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.InvestmentPortfolioRebalanceParams{}
+	params := jocall3.InvestmentPortfolioRebalanceParams{}
 
 	options, err := flagOptions(
 		cmd,

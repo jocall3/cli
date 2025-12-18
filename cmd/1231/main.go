@@ -9,15 +9,15 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/pkg/cmd"
-	"github.com/stainless-sdks/1231-go"
+	"github.com/jocall3/cli/pkg/cmd"
+	"github.com/jocall3/go"
 	"github.com/tidwall/gjson"
 )
 
 func main() {
 	app := cmd.Command
 	if err := app.Run(context.Background(), os.Args); err != nil {
-		var apierr *jamesburvelocallaghaniiicitibankdemobusinessinc.Error
+		var apierr *jocall3.Error
 		if errors.As(err, &apierr) {
 			fmt.Fprintf(os.Stderr, "%s %q: %d %s\n", apierr.Request.Method, apierr.Request.URL, apierr.Response.StatusCode, http.StatusText(apierr.Response.StatusCode))
 			format := app.String("format-error")

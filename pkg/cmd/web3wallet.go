@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -93,14 +93,14 @@ var web3WalletsRetrieveBalances = cli.Command{
 }
 
 func handleWeb3WalletsList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.Web3WalletListParams{}
+	params := jocall3.Web3WalletListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -127,14 +127,14 @@ func handleWeb3WalletsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleWeb3WalletsConnect(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.Web3WalletConnectParams{}
+	params := jocall3.Web3WalletConnectParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -161,7 +161,7 @@ func handleWeb3WalletsConnect(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleWeb3WalletsRetrieveBalances(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("wallet-id") && len(unusedArgs) > 0 {
 		cmd.Set("wallet-id", unusedArgs[0])
@@ -171,7 +171,7 @@ func handleWeb3WalletsRetrieveBalances(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.Web3WalletGetBalancesParams{}
+	params := jocall3.Web3WalletGetBalancesParams{}
 
 	options, err := flagOptions(
 		cmd,

@@ -8,11 +8,11 @@ import (
 	"mime/multipart"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiform"
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/debugmiddleware"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiform"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/debugmiddleware"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go/option"
 
 	"github.com/goccy/go-yaml"
 	"github.com/urfave/cli/v3"

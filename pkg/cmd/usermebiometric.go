@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -85,7 +85,7 @@ var usersMeBiometricsVerify = cli.Command{
 }
 
 func handleUsersMeBiometricsDeregister(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -107,14 +107,14 @@ func handleUsersMeBiometricsDeregister(ctx context.Context, cmd *cli.Command) er
 }
 
 func handleUsersMeBiometricsEnroll(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.UserMeBiometricEnrollParams{}
+	params := jocall3.UserMeBiometricEnrollParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -141,7 +141,7 @@ func handleUsersMeBiometricsEnroll(ctx context.Context, cmd *cli.Command) error 
 }
 
 func handleUsersMeBiometricsStatus(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
@@ -173,14 +173,14 @@ func handleUsersMeBiometricsStatus(ctx context.Context, cmd *cli.Command) error 
 }
 
 func handleUsersMeBiometricsVerify(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.UserMeBiometricVerifyParams{}
+	params := jocall3.UserMeBiometricVerifyParams{}
 
 	options, err := flagOptions(
 		cmd,

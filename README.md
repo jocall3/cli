@@ -8,15 +8,21 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ### Installing with Go
 
+<!-- x-release-please-start-version -->
+
 ```sh
-go install 'github.com/stainless-sdks/1231-cli/cmd/1231@latest'
+go install 'github.com/jocall3/cli/cmd/1231@latest'
 ```
 
 ### Running Locally
 
+<!-- x-release-please-start-version -->
+
 ```sh
 go run cmd/1231/main.go
 ```
+
+<!-- x-release-please-end -->
 
 ## Usage
 

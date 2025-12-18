@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -23,7 +23,7 @@ var transactionsInsightsGetSpendingTrends = cli.Command{
 }
 
 func handleTransactionsInsightsGetSpendingTrends(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {

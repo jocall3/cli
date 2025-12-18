@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -84,14 +84,14 @@ var corporateAnomaliesUpdateStatus = cli.Command{
 }
 
 func handleCorporateAnomaliesList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateAnomalyListParams{}
+	params := jocall3.CorporateAnomalyListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -118,7 +118,7 @@ func handleCorporateAnomaliesList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleCorporateAnomaliesUpdateStatus(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("anomaly-id") && len(unusedArgs) > 0 {
 		cmd.Set("anomaly-id", unusedArgs[0])
@@ -128,7 +128,7 @@ func handleCorporateAnomaliesUpdateStatus(ctx context.Context, cmd *cli.Command)
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateAnomalyUpdateStatusParams{}
+	params := jocall3.CorporateAnomalyUpdateStatusParams{}
 
 	options, err := flagOptions(
 		cmd,

@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -156,14 +156,14 @@ var budgetsDelete = cli.Command{
 }
 
 func handleBudgetsCreate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.BudgetNewParams{}
+	params := jocall3.BudgetNewParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -190,7 +190,7 @@ func handleBudgetsCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBudgetsRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("budget-id") && len(unusedArgs) > 0 {
 		cmd.Set("budget-id", unusedArgs[0])
@@ -225,7 +225,7 @@ func handleBudgetsRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBudgetsUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("budget-id") && len(unusedArgs) > 0 {
 		cmd.Set("budget-id", unusedArgs[0])
@@ -235,7 +235,7 @@ func handleBudgetsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.BudgetUpdateParams{}
+	params := jocall3.BudgetUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -267,14 +267,14 @@ func handleBudgetsUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBudgetsList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.BudgetListParams{}
+	params := jocall3.BudgetListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -301,7 +301,7 @@ func handleBudgetsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleBudgetsDelete(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("budget-id") && len(unusedArgs) > 0 {
 		cmd.Set("budget-id", unusedArgs[0])

@@ -12,8 +12,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/stainless-sdks/1231-cli/internal/jsonview"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/jsonview"
+	"github.com/jocall3/go/option"
 
 	"github.com/itchyny/json2yaml"
 	"github.com/tidwall/gjson"

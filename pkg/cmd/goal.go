@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -156,14 +156,14 @@ var goalsDelete = cli.Command{
 }
 
 func handleGoalsCreate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.GoalNewParams{}
+	params := jocall3.GoalNewParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -190,7 +190,7 @@ func handleGoalsCreate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleGoalsRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("goal-id") && len(unusedArgs) > 0 {
 		cmd.Set("goal-id", unusedArgs[0])
@@ -225,7 +225,7 @@ func handleGoalsRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleGoalsUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("goal-id") && len(unusedArgs) > 0 {
 		cmd.Set("goal-id", unusedArgs[0])
@@ -235,7 +235,7 @@ func handleGoalsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.GoalUpdateParams{}
+	params := jocall3.GoalUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -267,14 +267,14 @@ func handleGoalsUpdate(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleGoalsList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.GoalListParams{}
+	params := jocall3.GoalListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -301,7 +301,7 @@ func handleGoalsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleGoalsDelete(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("goal-id") && len(unusedArgs) > 0 {
 		cmd.Set("goal-id", unusedArgs[0])

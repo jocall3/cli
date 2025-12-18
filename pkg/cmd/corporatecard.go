@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -182,14 +182,14 @@ var corporateCardsUpdateControls = cli.Command{
 }
 
 func handleCorporateCardsList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateCardListParams{}
+	params := jocall3.CorporateCardListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -216,14 +216,14 @@ func handleCorporateCardsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleCorporateCardsCreateVirtual(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateCardNewVirtualParams{}
+	params := jocall3.CorporateCardNewVirtualParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -250,7 +250,7 @@ func handleCorporateCardsCreateVirtual(ctx context.Context, cmd *cli.Command) er
 }
 
 func handleCorporateCardsFreeze(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("card-id") && len(unusedArgs) > 0 {
 		cmd.Set("card-id", unusedArgs[0])
@@ -260,7 +260,7 @@ func handleCorporateCardsFreeze(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateCardFreezeParams{}
+	params := jocall3.CorporateCardFreezeParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -292,7 +292,7 @@ func handleCorporateCardsFreeze(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleCorporateCardsListTransactions(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("card-id") && len(unusedArgs) > 0 {
 		cmd.Set("card-id", unusedArgs[0])
@@ -302,7 +302,7 @@ func handleCorporateCardsListTransactions(ctx context.Context, cmd *cli.Command)
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateCardListTransactionsParams{}
+	params := jocall3.CorporateCardListTransactionsParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -334,7 +334,7 @@ func handleCorporateCardsListTransactions(ctx context.Context, cmd *cli.Command)
 }
 
 func handleCorporateCardsUpdateControls(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("card-id") && len(unusedArgs) > 0 {
 		cmd.Set("card-id", unusedArgs[0])
@@ -344,7 +344,7 @@ func handleCorporateCardsUpdateControls(ctx context.Context, cmd *cli.Command) e
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.CorporateCardUpdateControlsParams{}
+	params := jocall3.CorporateCardUpdateControlsParams{}
 
 	options, err := flagOptions(
 		cmd,

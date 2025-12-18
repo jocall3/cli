@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -39,7 +39,7 @@ var accountsTransactionsRetrievePending = cli.Command{
 }
 
 func handleAccountsTransactionsRetrievePending(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("account-id") && len(unusedArgs) > 0 {
 		cmd.Set("account-id", unusedArgs[0])
@@ -49,7 +49,7 @@ func handleAccountsTransactionsRetrievePending(ctx context.Context, cmd *cli.Com
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.AccountTransactionGetPendingParams{}
+	params := jocall3.AccountTransactionGetPendingParams{}
 
 	options, err := flagOptions(
 		cmd,

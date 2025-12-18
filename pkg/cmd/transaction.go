@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -154,7 +154,7 @@ var transactionsUpdateNotes = cli.Command{
 }
 
 func handleTransactionsRetrieve(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("transaction-id") && len(unusedArgs) > 0 {
 		cmd.Set("transaction-id", unusedArgs[0])
@@ -189,14 +189,14 @@ func handleTransactionsRetrieve(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleTransactionsList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.TransactionListParams{}
+	params := jocall3.TransactionListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -223,7 +223,7 @@ func handleTransactionsList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleTransactionsCategorize(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("transaction-id") && len(unusedArgs) > 0 {
 		cmd.Set("transaction-id", unusedArgs[0])
@@ -233,7 +233,7 @@ func handleTransactionsCategorize(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.TransactionCategorizeParams{}
+	params := jocall3.TransactionCategorizeParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -265,7 +265,7 @@ func handleTransactionsCategorize(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleTransactionsDispute(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("transaction-id") && len(unusedArgs) > 0 {
 		cmd.Set("transaction-id", unusedArgs[0])
@@ -275,7 +275,7 @@ func handleTransactionsDispute(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.TransactionDisputeParams{}
+	params := jocall3.TransactionDisputeParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -307,7 +307,7 @@ func handleTransactionsDispute(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleTransactionsUpdateNotes(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("transaction-id") && len(unusedArgs) > 0 {
 		cmd.Set("transaction-id", unusedArgs[0])
@@ -317,7 +317,7 @@ func handleTransactionsUpdateNotes(ctx context.Context, cmd *cli.Command) error 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.TransactionUpdateNotesParams{}
+	params := jocall3.TransactionUpdateNotesParams{}
 
 	options, err := flagOptions(
 		cmd,

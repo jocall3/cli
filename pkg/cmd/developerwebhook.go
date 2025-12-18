@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -99,14 +99,14 @@ var developersWebhooksDelete = cli.Command{
 }
 
 func handleDevelopersWebhooksCreate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.DeveloperWebhookNewParams{}
+	params := jocall3.DeveloperWebhookNewParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -133,7 +133,7 @@ func handleDevelopersWebhooksCreate(ctx context.Context, cmd *cli.Command) error
 }
 
 func handleDevelopersWebhooksUpdate(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("subscription-id") && len(unusedArgs) > 0 {
 		cmd.Set("subscription-id", unusedArgs[0])
@@ -143,7 +143,7 @@ func handleDevelopersWebhooksUpdate(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.DeveloperWebhookUpdateParams{}
+	params := jocall3.DeveloperWebhookUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -175,14 +175,14 @@ func handleDevelopersWebhooksUpdate(ctx context.Context, cmd *cli.Command) error
 }
 
 func handleDevelopersWebhooksList(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.DeveloperWebhookListParams{}
+	params := jocall3.DeveloperWebhookListParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -209,7 +209,7 @@ func handleDevelopersWebhooksList(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleDevelopersWebhooksDelete(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("subscription-id") && len(unusedArgs) > 0 {
 		cmd.Set("subscription-id", unusedArgs[0])

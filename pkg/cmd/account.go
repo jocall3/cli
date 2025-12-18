@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/stainless-sdks/1231-cli/internal/apiquery"
-	"github.com/stainless-sdks/1231-cli/internal/requestflag"
-	"github.com/stainless-sdks/1231-go"
-	"github.com/stainless-sdks/1231-go/option"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/go"
+	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
@@ -105,14 +105,14 @@ var accountsRetrieveStatements = cli.Command{
 }
 
 func handleAccountsLink(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.AccountLinkParams{}
+	params := jocall3.AccountLinkParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -139,7 +139,7 @@ func handleAccountsLink(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleAccountsRetrieveDetails(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("account-id") && len(unusedArgs) > 0 {
 		cmd.Set("account-id", unusedArgs[0])
@@ -174,14 +174,14 @@ func handleAccountsRetrieveDetails(ctx context.Context, cmd *cli.Command) error 
 }
 
 func handleAccountsRetrieveMe(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.AccountGetMeParams{}
+	params := jocall3.AccountGetMeParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -208,7 +208,7 @@ func handleAccountsRetrieveMe(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleAccountsRetrieveStatements(ctx context.Context, cmd *cli.Command) error {
-	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
+	client := jocall3.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("account-id") && len(unusedArgs) > 0 {
 		cmd.Set("account-id", unusedArgs[0])
@@ -218,7 +218,7 @@ func handleAccountsRetrieveStatements(ctx context.Context, cmd *cli.Command) err
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.AccountGetStatementsParams{}
+	params := jocall3.AccountGetStatementsParams{}
 
 	options, err := flagOptions(
 		cmd,
