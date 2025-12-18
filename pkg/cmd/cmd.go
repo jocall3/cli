@@ -21,8 +21,8 @@ var (
 
 func init() {
 	Command = &cli.Command{
-		Name:    "1231",
-		Usage:   "CLI for the 1231 API",
+		Name:    "jocall3",
+		Usage:   "CLI for the jocall3 API",
 		Suggest: true,
 		Version: Version,
 		Flags: []cli.Flag{
@@ -453,7 +453,7 @@ func init() {
 			{
 				Name:            "@manpages",
 				Usage:           "Generate documentation for 'man'",
-				UsageText:       "1231 @manpages [-o 1231.1] [--gzip]",
+				UsageText:       "jocall3 @manpages [-o jocall3.1] [--gzip]",
 				Hidden:          true,
 				Action:          generateManpages,
 				HideHelpCommand: true,
@@ -496,7 +496,7 @@ func generateManpages(ctx context.Context, c *cli.Command) error {
 		// handle error
 	}
 	if c.Bool("text") {
-		file, err := os.Create(filepath.Join(dir, "man1", "1231.1"))
+		file, err := os.Create(filepath.Join(dir, "man1", "jocall3.1"))
 		if err != nil {
 			return err
 		}
@@ -506,7 +506,7 @@ func generateManpages(ctx context.Context, c *cli.Command) error {
 		}
 	}
 	if c.Bool("gzip") {
-		file, err := os.Create(filepath.Join(dir, "man1", "1231.1.gz"))
+		file, err := os.Create(filepath.Join(dir, "man1", "jocall3.1.gz"))
 		if err != nil {
 			return err
 		}

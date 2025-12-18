@@ -1,6 +1,6 @@
-# 1231 CLI
+# Jocall3 CLI
 
-The official CLI for the 1231 REST API.
+The official CLI for the Jocall3 REST API.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 <!-- x-release-please-start-version -->
 
 ```sh
-go install 'github.com/jocall3/cli/cmd/1231@latest'
+go install 'github.com/jocall3/cli/cmd/jocall3@latest'
 ```
 
 ### Running Locally
@@ -19,7 +19,7 @@ go install 'github.com/jocall3/cli/cmd/1231@latest'
 <!-- x-release-please-start-version -->
 
 ```sh
-go run cmd/1231/main.go
+go run cmd/jocall3/main.go
 ```
 
 <!-- x-release-please-end -->
@@ -29,11 +29,11 @@ go run cmd/1231/main.go
 The CLI follows a resource-based command structure:
 
 ```sh
-1231 [resource] [command] [flags]
+jocall3 [resource] [command] [flags]
 ```
 
 ```sh
-1231 users register \
+jocall3 users register \
   --email alice.w@example.com \
   --name 'Alice Wonderland' \
   --password 'SecureP@ssw0rd2024!'

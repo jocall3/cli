@@ -26,7 +26,7 @@ var OutputFormats = []string{"auto", "explore", "json", "jsonl", "pretty", "raw"
 
 func getDefaultRequestOptions(cmd *cli.Command) []option.RequestOption {
 	opts := []option.RequestOption{
-		option.WithHeader("User-Agent", fmt.Sprintf("1231/CLI %s", Version)),
+		option.WithHeader("User-Agent", fmt.Sprintf("Jocall3/CLI %s", Version)),
 		option.WithHeader("X-Stainless-Lang", "cli"),
 		option.WithHeader("X-Stainless-Package-Version", Version),
 		option.WithHeader("X-Stainless-Runtime", "cli"),

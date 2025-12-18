@@ -1,20 +1,20 @@
-project_name: 1231
+project_name: jocall3
 version: 2
 
 before:
   hooks:
     - mkdir -p completions
-    - sh -c "go run ./cmd/1231/main.go @completion bash > completions/1231.bash"
-    - sh -c "go run ./cmd/1231/main.go @completion zsh > completions/1231.zsh"
-    - sh -c "go run ./cmd/1231/main.go @completion fish > completions/1231.fish"
-    - sh -c "go run ./cmd/1231/main.go @manpages -o man"
+    - sh -c "go run ./cmd/jocall3/main.go @completion bash > completions/jocall3.bash"
+    - sh -c "go run ./cmd/jocall3/main.go @completion zsh > completions/jocall3.zsh"
+    - sh -c "go run ./cmd/jocall3/main.go @completion fish > completions/jocall3.fish"
+    - sh -c "go run ./cmd/jocall3/main.go @manpages -o man"
 
 builds:
   - id: macos
     goos: [darwin]
     goarch: [amd64, arm64]
     binary: '{{ .ProjectName }}'
-    main: ./cmd/1231/main.go
+    main: ./cmd/jocall3/main.go
     mod_timestamp: '{{ .CommitTimestamp }}'
     ldflags:
       - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
@@ -25,7 +25,7 @@ builds:
     env:
       - CGO_ENABLED=0
     binary: '{{ .ProjectName }}'
-    main: ./cmd/1231/main.go
+    main: ./cmd/jocall3/main.go
     mod_timestamp: '{{ .CommitTimestamp }}'
     ldflags:
       - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
@@ -34,7 +34,7 @@ builds:
     goos: [windows]
     goarch: ['386', amd64, arm64]
     binary: '{{ .ProjectName }}'
-    main: ./cmd/1231/main.go
+    main: ./cmd/jocall3/main.go
     mod_timestamp: '{{ .CommitTimestamp }}'
     ldflags:
       - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
@@ -67,7 +67,7 @@ snapshot:
 
 nfpms:
   - license: Apache-2.0
-    maintainer: james burvel ocallaghan iii
+    maintainer: 
     bindir: /usr
     formats:
       - apk

@@ -4,5 +4,5 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "==> Building 1231"
-go build ./cmd/1231
+echo "==> Building jocall3"
+go build ./cmd/jocall3
