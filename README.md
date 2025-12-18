@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 <!-- x-release-please-start-version -->
 
 ```sh
-go install 'github.com/jocall3/cli/cmd/jocall3@latest'
+go install 'github.com/jocall3/1231-cli/cmd/jocall3@latest'
 ```
 
 ### Running Locally
