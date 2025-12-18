@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jocall3/cli/internal/apiquery"
-	"github.com/jocall3/cli/internal/requestflag"
+	"github.com/jocall3/1231-cli/internal/apiquery"
+	"github.com/jocall3/1231-cli/internal/requestflag"
 	"github.com/jocall3/go"
 	"github.com/jocall3/go/option"
 	"github.com/tidwall/gjson"
