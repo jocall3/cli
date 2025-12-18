@@ -19,15 +19,15 @@ var aiAdvisorChatRetrieveHistory = cli.Command{
 	Name:  "retrieve-history",
 	Usage: "Fetches the full conversation history with the Quantum AI Advisor for a given\nsession or user.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 		&requestflag.Flag[any]{
@@ -46,16 +46,17 @@ var aiAdvisorChatSendMessage = cli.Command{
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
 			Name:     "function-response",
+			Usage:    "Optional: The output from a tool function that the AI previously requested to be executed.",
 			BodyPath: "functionResponse",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "message",
-			Usage:    "The user's text message to the AI.",
+			Usage:    "The user's textual input to the AI Advisor.",
 			BodyPath: "message",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "session-id",
-			Usage:    "The ID of the ongoing chat session.",
+			Usage:    "Optional: Session ID to continue a conversation. If omitted, a new session is started.",
 			BodyPath: "sessionId",
 		},
 	},

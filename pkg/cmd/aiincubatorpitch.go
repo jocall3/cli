@@ -19,7 +19,7 @@ var aiIncubatorPitchRetrieveDetails = cli.Command{
 	Name:  "retrieve-details",
 	Usage: "Retrieves the granular AI-driven analysis, strategic feedback, market validation\nresults, and any outstanding questions from Quantum Weaver for a specific\nbusiness pitch.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "pitch-id",
 		},
 	},
@@ -31,20 +31,24 @@ var aiIncubatorPitchSubmit = cli.Command{
 	Name:  "submit",
 	Usage: "Submits a detailed business plan to the Quantum Weaver AI for rigorous analysis,\nmarket validation, and seed funding consideration. This initiates the AI-driven\nincubation journey, aiming to transform innovative ideas into commercially\nsuccessful ventures.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "business-plan",
+			Usage:    "The user's detailed narrative business plan (e.g., executive summary, vision, strategy).",
 			BodyPath: "businessPlan",
 		},
 		&requestflag.Flag[any]{
 			Name:     "financial-projections",
+			Usage:    "Key financial metrics and projections for the next 3-5 years.",
 			BodyPath: "financialProjections",
 		},
 		&requestflag.Flag[[]any]{
 			Name:     "founding-team",
+			Usage:    "Key profiles and expertise of the founding team members.",
 			BodyPath: "foundingTeam",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "market-opportunity",
+			Usage:    "Detailed analysis of the target market, problem statement, and proposed solution's unique value proposition.",
 			BodyPath: "marketOpportunity",
 		},
 	},
@@ -56,15 +60,16 @@ var aiIncubatorPitchSubmitFeedback = cli.Command{
 	Name:  "submit-feedback",
 	Usage: "Allows the entrepreneur to respond to specific questions or provide additional\ndetails requested by Quantum Weaver, moving the pitch forward in the incubation\nprocess.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "pitch-id",
 		},
 		&requestflag.Flag[[]any]{
 			Name:     "answer",
 			BodyPath: "answers",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "feedback",
+			Usage:    "General textual feedback or additional details for Quantum Weaver.",
 			BodyPath: "feedback",
 		},
 	},
@@ -96,7 +101,7 @@ func handleAIIncubatorPitchRetrieveDetails(ctx context.Context, cmd *cli.Command
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.AI.Incubator.Pitch.GetDetails(ctx, cmd.Value("pitch-id").(string), options...)
+	_, err = client.AI.Incubator.Pitch.GetDetails(ctx, cmd.Value("pitch-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -169,7 +174,7 @@ func handleAIIncubatorPitchSubmitFeedback(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.AI.Incubator.Pitch.SubmitFeedback(
 		ctx,
-		cmd.Value("pitch-id").(string),
+		cmd.Value("pitch-id").(any),
 		params,
 		options...,
 	)

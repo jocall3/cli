@@ -293,6 +293,29 @@ func init() {
 				},
 			},
 			{
+				Name:     "corporate:treasury",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&corporateTreasuryGetLiquidityPositions,
+				},
+			},
+			{
+				Name:     "corporate:treasury:cash-flow",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&corporateTreasuryCashFlowGetForecast,
+				},
+			},
+			{
+				Name:     "corporate:risk:fraud:rules",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&corporateRiskFraudRulesCreate,
+					&corporateRiskFraudRulesUpdate,
+					&corporateRiskFraudRulesList,
+				},
+			},
+			{
 				Name:     "web3",
 				Category: "API RESOURCE",
 				Commands: []*cli.Command{
@@ -362,10 +385,28 @@ func init() {
 				},
 			},
 			{
+				Name:     "developers:webhooks",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&developersWebhooksCreate,
+					&developersWebhooksUpdate,
+					&developersWebhooksList,
+				},
+			},
+			{
+				Name:     "developers:api-keys",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&developersAPIKeysCreate,
+					&developersAPIKeysList,
+				},
+			},
+			{
 				Name:     "identity:kyc",
 				Category: "API RESOURCE",
 				Commands: []*cli.Command{
 					&identityKYCRetrieveStatus,
+					&identityKYCSubmit,
 				},
 			},
 			{
@@ -373,6 +414,40 @@ func init() {
 				Category: "API RESOURCE",
 				Commands: []*cli.Command{
 					&goalsCreate,
+					&goalsRetrieve,
+					&goalsUpdate,
+					&goalsList,
+				},
+			},
+			{
+				Name:     "notifications",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&notificationsListUserNotifications,
+					&notificationsMarkAsRead,
+				},
+			},
+			{
+				Name:     "notifications:settings",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&notificationsSettingsRetrieve,
+					&notificationsSettingsUpdate,
+				},
+			},
+			{
+				Name:     "marketplace:products",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&marketplaceProductsList,
+					&marketplaceProductsSimulateImpact,
+				},
+			},
+			{
+				Name:     "marketplace:offers",
+				Category: "API RESOURCE",
+				Commands: []*cli.Command{
+					&marketplaceOffersRedeem,
 				},
 			},
 			{

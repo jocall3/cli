@@ -19,32 +19,39 @@ var web3TransactionsInitiateTransfer = cli.Command{
 	Name:  "initiate-transfer",
 	Usage: "Prepares and initiates a cryptocurrency transfer from a connected wallet to a\nspecified recipient address. Requires user confirmation (e.g., via wallet\nsignature).",
 	Flags: []cli.Flag{
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "amount",
+			Usage:    "The amount of cryptocurrency to transfer.",
 			BodyPath: "amount",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "asset-symbol",
+			Usage:    "Symbol of the crypto asset to transfer (e.g., ETH, USDC).",
 			BodyPath: "assetSymbol",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "blockchain-network",
+			Usage:    "The blockchain network for the transfer.",
 			BodyPath: "blockchainNetwork",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "recipient-address",
+			Usage:    "The recipient's blockchain address.",
 			BodyPath: "recipientAddress",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "source-wallet-id",
+			Usage:    "ID of the connected wallet from which to send funds.",
 			BodyPath: "sourceWalletId",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "gas-price-gwei",
+			Usage:    "Optional: Gas price in Gwei for Ethereum-based transactions.",
 			BodyPath: "gasPriceGwei",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "memo",
+			Usage:    "Optional: A short memo or note for the transaction.",
 			BodyPath: "memo",
 		},
 	},

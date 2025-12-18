@@ -19,21 +19,34 @@ var corporatePerformSanctionScreening = cli.Command{
 	Name:  "perform-sanction-screening",
 	Usage: "Executes a real-time screening of an individual or entity against global\nsanction lists and watchlists.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
-			Name:     "entity-type",
-			BodyPath: "entityType",
-		},
-		&requestflag.Flag[string]{
-			Name:     "name",
-			BodyPath: "name",
-		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "country",
+			Usage:    "Two-letter ISO country code related to the entity (e.g., country of residence, registration).",
 			BodyPath: "country",
 		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[string]{
+			Name:     "entity-type",
+			Usage:    "The type of entity being screened.",
+			BodyPath: "entityType",
+		},
+		&requestflag.Flag[any]{
+			Name:     "name",
+			Usage:    "Full name of the individual or organization to screen.",
+			BodyPath: "name",
+		},
+		&requestflag.Flag[any]{
+			Name:     "address",
+			BodyPath: "address",
+		},
+		&requestflag.Flag[any]{
 			Name:     "date-of-birth",
+			Usage:    "Date of birth for individuals (YYYY-MM-DD).",
 			BodyPath: "dateOfBirth",
+		},
+		&requestflag.Flag[any]{
+			Name:     "identification-number",
+			Usage:    "Optional: Any government-issued identification number (e.g., passport, national ID).",
+			BodyPath: "identificationNumber",
 		},
 	},
 	Action:          handleCorporatePerformSanctionScreening,

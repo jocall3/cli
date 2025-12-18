@@ -19,44 +19,65 @@ var aiAdsGenerateAdvanced = cli.Command{
 	Name:  "advanced",
 	Usage: "Submits a highly customized request to generate a video ad, allowing\nfine-grained control over artistic style, aspect ratio, voiceover, background\nmusic, target audience, and call-to-action elements for professional-grade\nproductions.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "length-seconds",
+			Usage:    "Desired length of the video in seconds.",
+			BodyPath: "lengthSeconds",
+		},
+		&requestflag.Flag[any]{
 			Name:     "prompt",
+			Usage:    "The textual prompt to guide the AI video generation.",
 			BodyPath: "prompt",
 		},
 		&requestflag.Flag[string]{
+			Name:     "style",
+			Usage:    "Artistic style of the video.",
+			BodyPath: "style",
+		},
+		&requestflag.Flag[string]{
 			Name:     "aspect-ratio",
+			Usage:    "Aspect ratio of the video (e.g., 16:9 for widescreen, 9:16 for vertical shorts).",
+			Default:  "16:9",
 			BodyPath: "aspectRatio",
 		},
 		&requestflag.Flag[string]{
 			Name:     "audience-target",
+			Usage:    "Target audience for the ad, influencing tone and visuals.",
 			BodyPath: "audienceTarget",
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[string]{
+			Name:     "background-music-genre",
+			Usage:    "Genre of background music.",
+			BodyPath: "backgroundMusicGenre",
+		},
+		&requestflag.Flag[[]any]{
 			Name:     "brand-asset",
+			Usage:    "URLs to brand assets (e.g., logos, specific imagery) to be incorporated.",
 			BodyPath: "brandAssets",
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[[]any]{
 			Name:     "brand-color",
+			Usage:    "Optional: Hex color codes to influence the video's aesthetic.",
 			BodyPath: "brandColors",
 		},
 		&requestflag.Flag[any]{
 			Name:     "call-to-action",
+			Usage:    "Call-to-action text and URL to be displayed.",
 			BodyPath: "callToAction",
 		},
-		&requestflag.Flag[int64]{
-			Name:     "length-seconds",
-			BodyPath: "lengthSeconds",
-		},
-		&requestflag.Flag[string]{
-			Name:     "style",
-			BodyPath: "style",
+		&requestflag.Flag[[]any]{
+			Name:     "keyword",
+			Usage:    "Optional: Additional keywords to guide the AI's content generation.",
+			BodyPath: "keywords",
 		},
 		&requestflag.Flag[string]{
 			Name:     "voiceover-style",
+			Usage:    "Style/tone for the AI voiceover.",
 			BodyPath: "voiceoverStyle",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "voiceover-text",
+			Usage:    "Optional: Text for an AI-generated voiceover.",
 			BodyPath: "voiceoverText",
 		},
 	},
@@ -68,25 +89,36 @@ var aiAdsGenerateStandard = cli.Command{
 	Name:  "standard",
 	Usage: "Submits a request to generate a high-quality video ad using the advanced Veo 2.0\ngenerative AI model. This is an asynchronous operation, suitable for standard ad\ncontent creation.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "length-seconds",
+			Usage:    "Desired length of the video in seconds.",
+			BodyPath: "lengthSeconds",
+		},
+		&requestflag.Flag[any]{
 			Name:     "prompt",
+			Usage:    "The textual prompt to guide the AI video generation.",
 			BodyPath: "prompt",
 		},
 		&requestflag.Flag[string]{
-			Name:     "aspect-ratio",
-			BodyPath: "aspectRatio",
-		},
-		&requestflag.Flag[[]string]{
-			Name:     "brand-color",
-			BodyPath: "brandColors",
-		},
-		&requestflag.Flag[int64]{
-			Name:     "length-seconds",
-			BodyPath: "lengthSeconds",
+			Name:     "style",
+			Usage:    "Artistic style of the video.",
+			BodyPath: "style",
 		},
 		&requestflag.Flag[string]{
-			Name:     "style",
-			BodyPath: "style",
+			Name:     "aspect-ratio",
+			Usage:    "Aspect ratio of the video (e.g., 16:9 for widescreen, 9:16 for vertical shorts).",
+			Default:  "16:9",
+			BodyPath: "aspectRatio",
+		},
+		&requestflag.Flag[[]any]{
+			Name:     "brand-color",
+			Usage:    "Optional: Hex color codes to influence the video's aesthetic.",
+			BodyPath: "brandColors",
+		},
+		&requestflag.Flag[[]any]{
+			Name:     "keyword",
+			Usage:    "Optional: Additional keywords to guide the AI's content generation.",
+			BodyPath: "keywords",
 		},
 	},
 	Action:          handleAIAdsGenerateStandard,

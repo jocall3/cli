@@ -19,32 +19,39 @@ var investmentsPortfoliosCreate = cli.Command{
 	Name:  "create",
 	Usage: "Creates a new investment portfolio, with options for initial asset allocation.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "currency",
+			Usage:    "ISO 4217 currency code of the portfolio.",
 			BodyPath: "currency",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "initial-investment",
+			Usage:    "Initial amount to invest into the portfolio.",
+			BodyPath: "initialInvestment",
+		},
+		&requestflag.Flag[any]{
 			Name:     "name",
+			Usage:    "Name for the new investment portfolio.",
 			BodyPath: "name",
 		},
 		&requestflag.Flag[string]{
 			Name:     "risk-tolerance",
+			Usage:    "Desired risk tolerance for this portfolio.",
 			BodyPath: "riskTolerance",
 		},
 		&requestflag.Flag[string]{
 			Name:     "type",
+			Usage:    "General type or strategy of the portfolio.",
 			BodyPath: "type",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "ai-auto-allocate",
+			Usage:    "If true, AI will automatically allocate initial investment based on risk tolerance.",
 			BodyPath: "aiAutoAllocate",
 		},
-		&requestflag.Flag[float64]{
-			Name:     "initial-investment",
-			BodyPath: "initialInvestment",
-		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "linked-account-id",
+			Usage:    "Optional: ID of a linked account to fund the initial investment.",
 			BodyPath: "linkedAccountId",
 		},
 	},
@@ -56,7 +63,7 @@ var investmentsPortfoliosRetrieve = cli.Command{
 	Name:  "retrieve",
 	Usage: "Retrieves detailed information for a specific investment portfolio, including\nholdings, performance, and AI insights.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "portfolio-id",
 		},
 	},
@@ -68,19 +75,22 @@ var investmentsPortfoliosUpdate = cli.Command{
 	Name:  "update",
 	Usage: "Updates high-level details of an investment portfolio, such as name or risk\ntolerance.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "portfolio-id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "ai-rebalancing-frequency",
+			Usage:    "Updated frequency for AI-driven rebalancing.",
 			BodyPath: "aiRebalancingFrequency",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "name",
+			Usage:    "Updated name of the portfolio.",
 			BodyPath: "name",
 		},
 		&requestflag.Flag[string]{
 			Name:     "risk-tolerance",
+			Usage:    "Updated risk tolerance for this portfolio. May trigger rebalancing.",
 			BodyPath: "riskTolerance",
 		},
 	},
@@ -92,15 +102,15 @@ var investmentsPortfoliosList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a summary of all investment portfolios linked to the user's account.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -112,20 +122,24 @@ var investmentsPortfoliosRebalance = cli.Command{
 	Name:  "rebalance",
 	Usage: "Triggers an AI-driven rebalancing process for a specific investment portfolio\nbased on a target risk tolerance or strategy.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "portfolio-id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "target-risk-tolerance",
+			Usage:    "The desired risk tolerance for rebalancing the portfolio.",
 			BodyPath: "targetRiskTolerance",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "confirmation-required",
+			Usage:    "If true, user confirmation is required before executing actual trades after a dry run.",
+			Default:  true,
 			BodyPath: "confirmationRequired",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "dry-run",
-			Usage:    "If true, returns the proposed changes without executing them.",
+			Usage:    "If true, only simulate the rebalance without executing trades. Returns proposed trades.",
+			Default:  true,
 			BodyPath: "dryRun",
 		},
 	},
@@ -191,7 +205,7 @@ func handleInvestmentsPortfoliosRetrieve(ctx context.Context, cmd *cli.Command) 
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Investments.Portfolios.Get(ctx, cmd.Value("portfolio-id").(string), options...)
+	_, err = client.Investments.Portfolios.Get(ctx, cmd.Value("portfolio-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -230,7 +244,7 @@ func handleInvestmentsPortfoliosUpdate(ctx context.Context, cmd *cli.Command) er
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Investments.Portfolios.Update(
 		ctx,
-		cmd.Value("portfolio-id").(string),
+		cmd.Value("portfolio-id").(any),
 		params,
 		options...,
 	)
@@ -306,7 +320,7 @@ func handleInvestmentsPortfoliosRebalance(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Investments.Portfolios.Rebalance(
 		ctx,
-		cmd.Value("portfolio-id").(string),
+		cmd.Value("portfolio-id").(any),
 		params,
 		options...,
 	)

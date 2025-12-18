@@ -19,17 +19,19 @@ var usersLogin = cli.Command{
 	Name:  "login",
 	Usage: "Authenticates a user and creates a secure session, returning access tokens. May\nrequire MFA depending on user settings.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "email",
+			Usage:    "User's email address.",
 			BodyPath: "email",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "password",
+			Usage:    "User's password.",
 			BodyPath: "password",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "mfa-code",
-			Usage:    "Multi-factor authentication code, if required.",
+			Usage:    "Optional: Multi-factor authentication code, if required.",
 			BodyPath: "mfaCode",
 		},
 	},
@@ -41,20 +43,33 @@ var usersRegister = cli.Command{
 	Name:  "register",
 	Usage: "Registers a new user account with , initiating the onboarding process. Requires\nbasic user details.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "email",
+			Usage:    "Email address for registration and login.",
 			BodyPath: "email",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "name",
+			Usage:    "Full name of the user.",
 			BodyPath: "name",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "password",
+			Usage:    "User's chosen password.",
 			BodyPath: "password",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "address",
+			BodyPath: "address",
+		},
+		&requestflag.Flag[any]{
+			Name:     "date-of-birth",
+			Usage:    "Optional date of birth (YYYY-MM-DD).",
+			BodyPath: "dateOfBirth",
+		},
+		&requestflag.Flag[any]{
 			Name:     "phone",
+			Usage:    "Optional phone number for MFA or recovery.",
 			BodyPath: "phone",
 		},
 	},

@@ -29,26 +29,32 @@ var usersMePreferencesUpdate = cli.Command{
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "ai-interaction-mode",
+			Usage:    "How the user prefers to interact with AI (proactive advice, balanced, or only on demand).",
 			BodyPath: "aiInteractionMode",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "data-sharing-consent",
+			Usage:    "Consent status for sharing anonymized data for AI improvement and personalized offers.",
 			BodyPath: "dataSharingConsent",
 		},
 		&requestflag.Flag[any]{
 			Name:     "notification-channels",
+			Usage:    "Preferred channels for receiving notifications.",
 			BodyPath: "notificationChannels",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "preferred-language",
+			Usage:    "Preferred language for the user interface.",
 			BodyPath: "preferredLanguage",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "theme",
+			Usage:    "Preferred UI theme (e.g., Light-Default, Dark-Quantum).",
 			BodyPath: "theme",
 		},
 		&requestflag.Flag[string]{
 			Name:     "transaction-grouping",
+			Usage:    "Default grouping preference for transaction lists.",
 			BodyPath: "transactionGrouping",
 		},
 	},

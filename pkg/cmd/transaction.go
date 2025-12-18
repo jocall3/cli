@@ -19,7 +19,7 @@ var transactionsRetrieve = cli.Command{
 	Name:  "retrieve",
 	Usage: "Retrieves granular information for a single transaction by its unique ID,\nincluding AI categorization confidence, merchant details, and associated carbon\nfootprint.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "transaction-id",
 		},
 	},
@@ -41,10 +41,10 @@ var transactionsList = cli.Command{
 			Usage:     "Retrieve transactions up to this date (inclusive).",
 			QueryPath: "endDate",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
 		&requestflag.Flag[any]{
@@ -57,9 +57,9 @@ var transactionsList = cli.Command{
 			Usage:     "Filter for transactions with an amount greater than or equal to this value.",
 			QueryPath: "minAmount",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 		&requestflag.Flag[any]{
@@ -86,20 +86,22 @@ var transactionsCategorize = cli.Command{
 	Name:  "categorize",
 	Usage: "Allows the user to override or refine the AI's categorization for a transaction,\nimproving future AI accuracy and personal financial reporting.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "transaction-id",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "category",
+			Usage:    "The new category for the transaction. Can be hierarchical.",
 			BodyPath: "category",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "apply-to-future",
-			Usage:    "If true, the AI will learn this categorization for future similar transactions.",
+			Usage:    "If true, the AI will learn from this correction and try to apply it to similar future transactions.",
 			BodyPath: "applyToFuture",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "notes",
+			Usage:    "Optional notes to add to the transaction.",
 			BodyPath: "notes",
 		},
 	},
@@ -111,19 +113,22 @@ var transactionsDispute = cli.Command{
 	Name:  "dispute",
 	Usage: "Begins the process of disputing a specific transaction, providing details and\nsupporting documentation for review by our compliance team and AI.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "transaction-id",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "details",
+			Usage:    "Detailed explanation of the dispute.",
 			BodyPath: "details",
 		},
 		&requestflag.Flag[string]{
 			Name:     "reason",
+			Usage:    "The primary reason for disputing the transaction.",
 			BodyPath: "reason",
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[[]any]{
 			Name:     "supporting-document",
+			Usage:    "URLs to supporting documents (e.g., receipts, communication).",
 			BodyPath: "supportingDocuments",
 		},
 	},
@@ -135,11 +140,12 @@ var transactionsUpdateNotes = cli.Command{
 	Name:  "update-notes",
 	Usage: "Allows the user to add or update personal notes for a specific transaction.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "transaction-id",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "notes",
+			Usage:    "The personal notes to add or update for the transaction.",
 			BodyPath: "notes",
 		},
 	},
@@ -171,7 +177,7 @@ func handleTransactionsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Transactions.Get(ctx, cmd.Value("transaction-id").(string), options...)
+	_, err = client.Transactions.Get(ctx, cmd.Value("transaction-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -244,7 +250,7 @@ func handleTransactionsCategorize(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.Categorize(
 		ctx,
-		cmd.Value("transaction-id").(string),
+		cmd.Value("transaction-id").(any),
 		params,
 		options...,
 	)
@@ -286,7 +292,7 @@ func handleTransactionsDispute(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.Dispute(
 		ctx,
-		cmd.Value("transaction-id").(string),
+		cmd.Value("transaction-id").(any),
 		params,
 		options...,
 	)
@@ -328,7 +334,7 @@ func handleTransactionsUpdateNotes(ctx context.Context, cmd *cli.Command) error 
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.UpdateNotes(
 		ctx,
-		cmd.Value("transaction-id").(string),
+		cmd.Value("transaction-id").(any),
 		params,
 		options...,
 	)

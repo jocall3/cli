@@ -19,7 +19,7 @@ var accountsOverdraftSettingsRetrieveOverdraftSettings = cli.Command{
 	Name:  "retrieve-overdraft-settings",
 	Usage: "Retrieves the current overdraft protection settings for a specific account.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "account-id",
 		},
 	},
@@ -31,27 +31,32 @@ var accountsOverdraftSettingsUpdateOverdraftSettings = cli.Command{
 	Name:  "update-overdraft-settings",
 	Usage: "Updates the overdraft protection settings for a specific account, enabling or\ndisabling protection and configuring preferences.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "account-id",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "enabled",
+			Usage:    "Enable or disable overdraft protection.",
 			BodyPath: "enabled",
 		},
 		&requestflag.Flag[string]{
 			Name:     "fee-preference",
+			Usage:    "New preference for how overdraft fees are handled.",
 			BodyPath: "feePreference",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "linked-savings-account-id",
+			Usage:    "New ID of the linked savings account, if `linkToSavings` is true. Set to null to unlink.",
 			BodyPath: "linkedSavingsAccountId",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "link-to-savings",
+			Usage:    "Enable or disable linking to a savings account for overdraft coverage.",
 			BodyPath: "linkToSavings",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "protection-limit",
+			Usage:    "New maximum amount for overdraft protection. Set to null to remove limit.",
 			BodyPath: "protectionLimit",
 		},
 	},
@@ -83,7 +88,7 @@ func handleAccountsOverdraftSettingsRetrieveOverdraftSettings(ctx context.Contex
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Accounts.OverdraftSettings.GetOverdraftSettings(ctx, cmd.Value("account-id").(string), options...)
+	_, err = client.Accounts.OverdraftSettings.GetOverdraftSettings(ctx, cmd.Value("account-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -122,7 +127,7 @@ func handleAccountsOverdraftSettingsUpdateOverdraftSettings(ctx context.Context,
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.OverdraftSettings.UpdateOverdraftSettings(
 		ctx,
-		cmd.Value("account-id").(string),
+		cmd.Value("account-id").(any),
 		params,
 		options...,
 	)

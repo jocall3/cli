@@ -19,16 +19,19 @@ var usersPasswordResetConfirm = cli.Command{
 	Name:  "confirm",
 	Usage: "Confirms the password reset using the received verification code and sets a new\npassword.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "identifier",
+			Usage:    "User's email or phone number used for verification.",
 			BodyPath: "identifier",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "new-password",
+			Usage:    "The new password for the user account.",
 			BodyPath: "newPassword",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "verification-code",
+			Usage:    "The verification code received via email or SMS.",
 			BodyPath: "verificationCode",
 		},
 	},
@@ -40,9 +43,9 @@ var usersPasswordResetInitiate = cli.Command{
 	Name:  "initiate",
 	Usage: "Starts the password reset flow by sending a verification code or link to the\nuser's registered email or phone.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "identifier",
-			Usage:    "The user's email address or phone number.",
+			Usage:    "User's email or phone number for verification.",
 			BodyPath: "identifier",
 		},
 	},

@@ -19,15 +19,15 @@ var aiAdvisorListTools = cli.Command{
 	Name:  "list-tools",
 	Usage: "Retrieves a dynamic manifest of all integrated AI tools that Quantum can invoke\nand execute, providing details on their capabilities, parameters, and access\nrequirements.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},

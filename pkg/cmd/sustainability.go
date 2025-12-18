@@ -19,17 +19,20 @@ var sustainabilityPurchaseCarbonOffsets = cli.Command{
 	Name:  "purchase-carbon-offsets",
 	Usage: "Allows users to purchase carbon offsets to neutralize their estimated carbon\nfootprint, supporting environmental initiatives.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "amount-kg-co2e",
+			Usage:    "The amount of carbon dioxide equivalent to offset in kilograms.",
 			BodyPath: "amountKgCO2e",
 		},
-		&requestflag.Flag[string]{
-			Name:     "payment-account-id",
-			BodyPath: "paymentAccountId",
-		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "offset-project",
+			Usage:    "Optional: The specific carbon offset project to support.",
 			BodyPath: "offsetProject",
+		},
+		&requestflag.Flag[any]{
+			Name:     "payment-account-id",
+			Usage:    "The ID of the user's account to use for payment.",
+			BodyPath: "paymentAccountId",
 		},
 	},
 	Action:          handleSustainabilityPurchaseCarbonOffsets,

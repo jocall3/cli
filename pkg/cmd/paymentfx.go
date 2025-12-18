@@ -19,28 +19,34 @@ var paymentsFxConvert = cli.Command{
 	Name:  "convert",
 	Usage: "Executes an instant currency conversion between two currencies, either from a\nbalance or into a specified account.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "source-account-id",
+			Usage:    "The ID of the account from which funds will be converted.",
 			BodyPath: "sourceAccountId",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "source-amount",
+			Usage:    "The amount to convert from the source currency.",
 			BodyPath: "sourceAmount",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "source-currency",
+			Usage:    "The ISO 4217 currency code of the source funds.",
 			BodyPath: "sourceCurrency",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "target-currency",
+			Usage:    "The ISO 4217 currency code for the target currency.",
 			BodyPath: "targetCurrency",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "fx-rate-lock",
+			Usage:    "If true, attempts to lock the quoted FX rate for a short period.",
 			BodyPath: "fxRateLock",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "target-account-id",
+			Usage:    "Optional: The ID of the account to deposit the converted funds. If null, funds are held in a wallet/balance.",
 			BodyPath: "targetAccountId",
 		},
 	},

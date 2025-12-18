@@ -19,9 +19,9 @@ var corporateAnomaliesList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a comprehensive list of AI-detected financial anomalies across\ntransactions, payments, and corporate cards that require immediate review and\npotential action to mitigate risk and ensure compliance.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:      "end-date",
-			Usage:     "The end date for the query range (inclusive).",
+			Usage:     "End date for filtering results (inclusive, YYYY-MM-DD).",
 			QueryPath: "endDate",
 		},
 		&requestflag.Flag[string]{
@@ -29,15 +29,15 @@ var corporateAnomaliesList = cli.Command{
 			Usage:     "Filter anomalies by the type of financial entity they are related to.",
 			QueryPath: "entityType",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 		&requestflag.Flag[string]{
@@ -45,9 +45,9 @@ var corporateAnomaliesList = cli.Command{
 			Usage:     "Filter anomalies by their AI-assessed severity level.",
 			QueryPath: "severity",
 		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:      "start-date",
-			Usage:     "The start date for the query range (inclusive).",
+			Usage:     "Start date for filtering results (inclusive, YYYY-MM-DD).",
 			QueryPath: "startDate",
 		},
 		&requestflag.Flag[string]{
@@ -65,15 +65,17 @@ var corporateAnomaliesUpdateStatus = cli.Command{
 	Name:  "update-status",
 	Usage: "Updates the review status of a specific financial anomaly, allowing compliance\nofficers to mark it as dismissed, resolved, or escalate for further\ninvestigation after thorough AI-assisted and human review.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "anomaly-id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "status",
+			Usage:    "The new status for the financial anomaly.",
 			BodyPath: "status",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "resolution-notes",
+			Usage:    "Optional notes regarding the resolution or dismissal of the anomaly.",
 			BodyPath: "resolutionNotes",
 		},
 	},
@@ -143,7 +145,7 @@ func handleCorporateAnomaliesUpdateStatus(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Anomalies.UpdateStatus(
 		ctx,
-		cmd.Value("anomaly-id").(string),
+		cmd.Value("anomaly-id").(any),
 		params,
 		options...,
 	)

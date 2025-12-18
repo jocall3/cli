@@ -19,13 +19,25 @@ var accountsLink = cli.Command{
 	Name:  "link",
 	Usage: "Begins the secure process of linking a new external financial institution (e.g.,\nanother bank, investment platform) to the user's profile, typically involving a\nthird-party tokenized flow.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "country-code",
+			Usage:    "Two-letter ISO country code of the institution.",
 			BodyPath: "countryCode",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "institution-name",
+			Usage:    "Name of the financial institution to link.",
 			BodyPath: "institutionName",
+		},
+		&requestflag.Flag[any]{
+			Name:     "provider-identifier",
+			Usage:    "Optional: Specific identifier for a third-party linking provider (e.g., 'plaid', 'finicity').",
+			BodyPath: "providerIdentifier",
+		},
+		&requestflag.Flag[any]{
+			Name:     "redirect-uri",
+			Usage:    "Optional: URI to redirect the user after completing the external authentication flow.",
+			BodyPath: "redirectUri",
 		},
 	},
 	Action:          handleAccountsLink,
@@ -36,7 +48,7 @@ var accountsRetrieveDetails = cli.Command{
 	Name:  "retrieve-details",
 	Usage: "Retrieves comprehensive analytics for a specific financial account, including\nhistorical balance trends, projected cash flow, and AI-driven insights into\nspending patterns.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "account-id",
 		},
 	},
@@ -48,15 +60,15 @@ var accountsRetrieveMe = cli.Command{
 	Name:  "retrieve-me",
 	Usage: "Fetches a comprehensive, real-time list of all external financial accounts\nlinked to the user's profile, including consolidated balances and institutional\ndetails.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -68,7 +80,7 @@ var accountsRetrieveStatements = cli.Command{
 	Name:  "retrieve-statements",
 	Usage: "Fetches digital statements for a specific account, allowing filtering by date\nrange and format.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "account-id",
 		},
 		&requestflag.Flag[any]{
@@ -150,7 +162,7 @@ func handleAccountsRetrieveDetails(ctx context.Context, cmd *cli.Command) error 
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Accounts.GetDetails(ctx, cmd.Value("account-id").(string), options...)
+	_, err = client.Accounts.GetDetails(ctx, cmd.Value("account-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -223,7 +235,7 @@ func handleAccountsRetrieveStatements(ctx context.Context, cmd *cli.Command) err
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.GetStatements(
 		ctx,
-		cmd.Value("account-id").(string),
+		cmd.Value("account-id").(any),
 		params,
 		options...,
 	)

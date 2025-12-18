@@ -19,37 +19,51 @@ var paymentsInternationalInitiate = cli.Command{
 	Name:  "initiate",
 	Usage: "Facilitates the secure initiation of an international wire transfer to a\nbeneficiary in another country and currency, leveraging optimal FX rates and\ntracking capabilities.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "amount",
+			Usage:    "The amount to send in the source currency.",
 			BodyPath: "amount",
 		},
 		&requestflag.Flag[any]{
 			Name:     "beneficiary",
+			Usage:    "Details of the payment beneficiary.",
 			BodyPath: "beneficiary",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "purpose",
+			Usage:    "Purpose of the payment.",
+			BodyPath: "purpose",
+		},
+		&requestflag.Flag[any]{
 			Name:     "source-account-id",
+			Usage:    "The ID of the user's source account for the payment.",
 			BodyPath: "sourceAccountId",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "source-currency",
+			Usage:    "The ISO 4217 currency code of the source funds.",
 			BodyPath: "sourceCurrency",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "target-currency",
+			Usage:    "The ISO 4217 currency code for the beneficiary's currency.",
 			BodyPath: "targetCurrency",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "fx-rate-lock",
+			Usage:    "If true, attempts to lock the quoted FX rate for a short period.",
 			BodyPath: "fxRateLock",
 		},
 		&requestflag.Flag[string]{
 			Name:     "fx-rate-provider",
+			Usage:    "Indicates whether to use AI-optimized FX rates or standard market rates.",
+			Default:  "proprietary_ai",
 			BodyPath: "fxRateProvider",
 		},
-		&requestflag.Flag[string]{
-			Name:     "purpose",
-			BodyPath: "purpose",
+		&requestflag.Flag[any]{
+			Name:     "reference",
+			Usage:    "Optional: Your internal reference for this payment.",
+			BodyPath: "reference",
 		},
 	},
 	Action:          handlePaymentsInternationalInitiate,
@@ -60,7 +74,7 @@ var paymentsInternationalRetrieveStatus = cli.Command{
 	Name:  "retrieve-status",
 	Usage: "Retrieves the current processing status and details of an initiated\ninternational payment.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "payment-id",
 		},
 	},
@@ -126,7 +140,7 @@ func handlePaymentsInternationalRetrieveStatus(ctx context.Context, cmd *cli.Com
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Payments.International.GetStatus(ctx, cmd.Value("payment-id").(string), options...)
+	_, err = client.Payments.International.GetStatus(ctx, cmd.Value("payment-id").(any), options...)
 	if err != nil {
 		return err
 	}

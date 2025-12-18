@@ -19,18 +19,18 @@ var accountsTransactionsRetrievePending = cli.Command{
 	Name:  "retrieve-pending",
 	Usage: "Retrieves a list of pending transactions that have not yet cleared for a\nspecific financial account.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "account-id",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -66,7 +66,7 @@ func handleAccountsTransactionsRetrievePending(ctx context.Context, cmd *cli.Com
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.Transactions.GetPending(
 		ctx,
-		cmd.Value("account-id").(string),
+		cmd.Value("account-id").(any),
 		params,
 		options...,
 	)

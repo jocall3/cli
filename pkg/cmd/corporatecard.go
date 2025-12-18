@@ -19,15 +19,15 @@ var corporateCardsList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a comprehensive list of all physical and virtual corporate cards\nassociated with the user's organization, including their status, assigned\nholder, and current spending controls.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -41,23 +41,33 @@ var corporateCardsCreateVirtual = cli.Command{
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
 			Name:     "controls",
+			Usage:    "Granular spending controls for a corporate card.",
 			BodyPath: "controls",
 		},
-		&requestflag.Flag[string]{
-			Name:     "holder-name",
-			BodyPath: "holderName",
-		},
-		&requestflag.Flag[string]{
-			Name:     "associated-employee-id",
-			BodyPath: "associatedEmployeeId",
-		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:     "expiration-date",
+			Usage:    "Expiration date for the virtual card (YYYY-MM-DD).",
 			BodyPath: "expirationDate",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
+			Name:     "holder-name",
+			Usage:    "Name to appear on the virtual card.",
+			BodyPath: "holderName",
+		},
+		&requestflag.Flag[any]{
 			Name:     "purpose",
+			Usage:    "Brief description of the virtual card's purpose.",
 			BodyPath: "purpose",
+		},
+		&requestflag.Flag[any]{
+			Name:     "associated-employee-id",
+			Usage:    "Optional: ID of the employee or department this card is for.",
+			BodyPath: "associatedEmployeeId",
+		},
+		&requestflag.Flag[any]{
+			Name:     "spending-policy-id",
+			Usage:    "Optional: ID of a spending policy to link with this virtual card.",
+			BodyPath: "spendingPolicyId",
 		},
 	},
 	Action:          handleCorporateCardsCreateVirtual,
@@ -68,11 +78,12 @@ var corporateCardsFreeze = cli.Command{
 	Name:  "freeze",
 	Usage: "Immediately changes the frozen status of a corporate card, preventing or\nallowing transactions in real-time, critical for security and expense\nmanagement.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "card-id",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "freeze",
+			Usage:    "Set to `true` to freeze the card, `false` to unfreeze.",
 			BodyPath: "freeze",
 		},
 	},
@@ -84,28 +95,28 @@ var corporateCardsListTransactions = cli.Command{
 	Name:  "list-transactions",
 	Usage: "Retrieves a paginated list of transactions made with a specific corporate card,\nincluding AI categorization and compliance flags.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "card-id",
 		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:      "end-date",
-			Usage:     "The end date for the query range (inclusive).",
+			Usage:     "End date for filtering results (inclusive, YYYY-MM-DD).",
 			QueryPath: "endDate",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:      "start-date",
-			Usage:     "The start date for the query range (inclusive).",
+			Usage:     "Start date for filtering results (inclusive, YYYY-MM-DD).",
 			QueryPath: "startDate",
 		},
 	},
@@ -117,43 +128,52 @@ var corporateCardsUpdateControls = cli.Command{
 	Name:  "update-controls",
 	Usage: "Updates the sophisticated spending controls, limits, and policy overrides for a\nspecific corporate card, enabling real-time adjustments for security and budget\nadherence.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "card-id",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "atm-withdrawals",
+			Usage:    "If true, ATM cash withdrawals are allowed.",
 			BodyPath: "atmWithdrawals",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "contactless-payments",
+			Usage:    "If true, contactless payments are allowed.",
 			BodyPath: "contactlessPayments",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "daily-limit",
+			Usage:    "Maximum spending limit per day (null for no limit).",
 			BodyPath: "dailyLimit",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "international-transactions",
+			Usage:    "If true, international transactions are allowed.",
 			BodyPath: "internationalTransactions",
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[[]any]{
 			Name:     "merchant-category-restriction",
+			Usage:    "List of allowed merchant categories. If empty, all are allowed unless explicitly denied.",
 			BodyPath: "merchantCategoryRestrictions",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "monthly-limit",
+			Usage:    "Maximum spending limit per month (null for no limit).",
 			BodyPath: "monthlyLimit",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "online-transactions",
+			Usage:    "If true, online transactions are allowed.",
 			BodyPath: "onlineTransactions",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "single-transaction-limit",
+			Usage:    "Maximum amount for a single transaction (null for no limit).",
 			BodyPath: "singleTransactionLimit",
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[[]any]{
 			Name:     "vendor-restriction",
+			Usage:    "List of allowed vendors/merchants by name.",
 			BodyPath: "vendorRestrictions",
 		},
 	},
@@ -257,7 +277,7 @@ func handleCorporateCardsFreeze(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.Freeze(
 		ctx,
-		cmd.Value("card-id").(string),
+		cmd.Value("card-id").(any),
 		params,
 		options...,
 	)
@@ -299,7 +319,7 @@ func handleCorporateCardsListTransactions(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.ListTransactions(
 		ctx,
-		cmd.Value("card-id").(string),
+		cmd.Value("card-id").(any),
 		params,
 		options...,
 	)
@@ -341,7 +361,7 @@ func handleCorporateCardsUpdateControls(ctx context.Context, cmd *cli.Command) e
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.UpdateControls(
 		ctx,
-		cmd.Value("card-id").(string),
+		cmd.Value("card-id").(any),
 		params,
 		options...,
 	)

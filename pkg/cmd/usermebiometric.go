@@ -27,21 +27,24 @@ var usersMeBiometricsEnroll = cli.Command{
 	Name:  "enroll",
 	Usage: "Initiates the enrollment process for biometric authentication (e.g.,\nfingerprint, facial scan) to enable secure and convenient access to sensitive\nfeatures. Requires a biometric signature for initial proof.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "biometric-signature",
-			Usage:    "Base64 encoded biometric template for enrollment.",
+			Usage:    "Base64 encoded representation of the biometric template or proof.",
 			BodyPath: "biometricSignature",
 		},
 		&requestflag.Flag[string]{
 			Name:     "biometric-type",
+			Usage:    "The type of biometric data being enrolled.",
 			BodyPath: "biometricType",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "device-id",
+			Usage:    "The ID of the device on which the biometric is being enrolled.",
 			BodyPath: "deviceId",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "device-name",
+			Usage:    "Optional: A friendly name for the device, if not already linked.",
 			BodyPath: "deviceName",
 		},
 	},
@@ -61,17 +64,19 @@ var usersMeBiometricsVerify = cli.Command{
 	Name:  "verify",
 	Usage: "Performs real-time biometric verification to authorize sensitive actions or\naccess protected resources, using a one-time biometric signature.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "biometric-signature",
-			Usage:    "Base64 encoded one-time biometric proof for verification.",
+			Usage:    "Base64 encoded representation of the one-time biometric proof for verification.",
 			BodyPath: "biometricSignature",
 		},
 		&requestflag.Flag[string]{
 			Name:     "biometric-type",
+			Usage:    "The type of biometric data being verified.",
 			BodyPath: "biometricType",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "device-id",
+			Usage:    "The ID of the device initiating the biometric verification.",
 			BodyPath: "deviceId",
 		},
 	},

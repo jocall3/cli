@@ -19,7 +19,7 @@ var lendingApplicationsRetrieve = cli.Command{
 	Name:  "retrieve",
 	Usage: "Retrieves the current status and detailed information for a submitted loan\napplication, including AI underwriting outcomes, approved terms, and next steps.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "application-id",
 		},
 	},
@@ -31,24 +31,29 @@ var lendingApplicationsSubmit = cli.Command{
 	Name:  "submit",
 	Usage: "Submits a new loan application, which is instantly processed and underwritten by\nour Quantum AI, providing rapid decisions and personalized loan offers based on\nreal-time financial health data.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "loan-amount",
+			Usage:    "The desired loan amount.",
 			BodyPath: "loanAmount",
 		},
 		&requestflag.Flag[string]{
 			Name:     "loan-purpose",
+			Usage:    "The purpose of the loan.",
 			BodyPath: "loanPurpose",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:     "repayment-term-months",
+			Usage:    "The desired repayment term in months.",
 			BodyPath: "repaymentTermMonths",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "additional-notes",
+			Usage:    "Optional notes or details for the application.",
 			BodyPath: "additionalNotes",
 		},
 		&requestflag.Flag[any]{
 			Name:     "co-applicant",
+			Usage:    "Optional: Details of a co-applicant for the loan.",
 			BodyPath: "coApplicant",
 		},
 	},
@@ -80,7 +85,7 @@ func handleLendingApplicationsRetrieve(ctx context.Context, cmd *cli.Command) er
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Lending.Applications.Get(ctx, cmd.Value("application-id").(string), options...)
+	_, err = client.Lending.Applications.Get(ctx, cmd.Value("application-id").(any), options...)
 	if err != nil {
 		return err
 	}

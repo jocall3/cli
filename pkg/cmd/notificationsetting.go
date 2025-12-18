@@ -15,43 +15,39 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var usersMeRetrieve = cli.Command{
+var notificationsSettingsRetrieve = cli.Command{
 	Name:            "retrieve",
-	Usage:           "Fetches the complete and dynamically updated profile information for the\ncurrently authenticated user, encompassing personal details, security status,\ngamification level, loyalty points, and linked identity attributes.",
+	Usage:           "Retrieves the user's granular notification preferences across different channels\n(email, push, SMS, in-app) and event types.",
 	Flags:           []cli.Flag{},
-	Action:          handleUsersMeRetrieve,
+	Action:          handleNotificationsSettingsRetrieve,
 	HideHelpCommand: true,
 }
 
-var usersMeUpdate = cli.Command{
+var notificationsSettingsUpdate = cli.Command{
 	Name:  "update",
-	Usage: "Updates selected fields of the currently authenticated user's profile\ninformation.",
+	Usage: "Updates the user's notification preferences, allowing control over channels,\nevent types, and quiet hours.",
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
-			Name:     "address",
-			BodyPath: "address",
+			Name:     "channel-preferences",
+			Usage:    "Updated preferences for notification delivery channels. Only provided fields are updated.",
+			BodyPath: "channelPreferences",
 		},
 		&requestflag.Flag[any]{
-			Name:     "name",
-			Usage:    "Updated full name of the user.",
-			BodyPath: "name",
+			Name:     "event-preferences",
+			Usage:    "Updated preferences for different types of events. Only provided fields are updated.",
+			BodyPath: "eventPreferences",
 		},
 		&requestflag.Flag[any]{
-			Name:     "phone",
-			Usage:    "Updated primary phone number of the user.",
-			BodyPath: "phone",
-		},
-		&requestflag.Flag[any]{
-			Name:     "preferences",
-			Usage:    "User's personalized preferences for the platform.",
-			BodyPath: "preferences",
+			Name:     "quiet-hours",
+			Usage:    "Updated settings for notification quiet hours. Only provided fields are updated.",
+			BodyPath: "quietHours",
 		},
 	},
-	Action:          handleUsersMeUpdate,
+	Action:          handleNotificationsSettingsUpdate,
 	HideHelpCommand: true,
 }
 
-func handleUsersMeRetrieve(ctx context.Context, cmd *cli.Command) error {
+func handleNotificationsSettingsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -72,7 +68,7 @@ func handleUsersMeRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Users.Me.Get(ctx, options...)
+	_, err = client.Notifications.Settings.Get(ctx, options...)
 	if err != nil {
 		return err
 	}
@@ -80,10 +76,10 @@ func handleUsersMeRetrieve(ctx context.Context, cmd *cli.Command) error {
 	obj := gjson.ParseBytes(res)
 	format := cmd.Root().String("format")
 	transform := cmd.Root().String("transform")
-	return ShowJSON(os.Stdout, "users:me retrieve", obj, format, transform)
+	return ShowJSON(os.Stdout, "notifications:settings retrieve", obj, format, transform)
 }
 
-func handleUsersMeUpdate(ctx context.Context, cmd *cli.Command) error {
+func handleNotificationsSettingsUpdate(ctx context.Context, cmd *cli.Command) error {
 	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
 
@@ -91,7 +87,7 @@ func handleUsersMeUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.UserMeUpdateParams{}
+	params := jamesburvelocallaghaniiicitibankdemobusinessinc.NotificationSettingUpdateParams{}
 
 	options, err := flagOptions(
 		cmd,
@@ -106,7 +102,7 @@ func handleUsersMeUpdate(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Users.Me.Update(ctx, params, options...)
+	_, err = client.Notifications.Settings.Update(ctx, params, options...)
 	if err != nil {
 		return err
 	}
@@ -114,5 +110,5 @@ func handleUsersMeUpdate(ctx context.Context, cmd *cli.Command) error {
 	obj := gjson.ParseBytes(res)
 	format := cmd.Root().String("format")
 	transform := cmd.Root().String("transform")
-	return ShowJSON(os.Stdout, "users:me update", obj, format, transform)
+	return ShowJSON(os.Stdout, "notifications:settings update", obj, format, transform)
 }

@@ -19,37 +19,44 @@ var budgetsCreate = cli.Command{
 	Name:  "create",
 	Usage: "Creates a new financial budget for the user, with optional AI auto-population of\ncategories and amounts.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:     "end-date",
+			Usage:    "End date of the budget period.",
 			BodyPath: "endDate",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "name",
+			Usage:    "Name of the new budget.",
 			BodyPath: "name",
 		},
 		&requestflag.Flag[string]{
 			Name:     "period",
+			Usage:    "The frequency or period of the budget.",
 			BodyPath: "period",
 		},
-		&requestflag.Flag[requestflag.DateValue]{
+		&requestflag.Flag[any]{
 			Name:     "start-date",
+			Usage:    "Start date of the budget period.",
 			BodyPath: "startDate",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
 			Name:     "total-amount",
+			Usage:    "Total amount allocated for the entire budget.",
 			BodyPath: "totalAmount",
 		},
-		&requestflag.Flag[bool]{
+		&requestflag.Flag[any]{
 			Name:     "ai-auto-populate",
-			Usage:    "If true, AI will populate categories based on past spending.",
+			Usage:    "If true, AI will automatically populate categories and amounts based on historical spending.",
 			BodyPath: "aiAutoPopulate",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:     "alert-threshold",
+			Usage:    "Percentage threshold at which an alert is triggered.",
 			BodyPath: "alertThreshold",
 		},
 		&requestflag.Flag[[]any]{
 			Name:     "category",
+			Usage:    "Initial breakdown of the budget by categories.",
 			BodyPath: "categories",
 		},
 	},
@@ -61,7 +68,7 @@ var budgetsRetrieve = cli.Command{
 	Name:  "retrieve",
 	Usage: "Retrieves detailed information for a specific budget, including current\nspending, remaining amounts, and AI recommendations.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "budget-id",
 		},
 	},
@@ -73,19 +80,42 @@ var budgetsUpdate = cli.Command{
 	Name:  "update",
 	Usage: "Updates the parameters of an existing budget, such as total amount, dates, or\ncategories.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "budget-id",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:     "alert-threshold",
+			Usage:    "Updated percentage threshold for alerts.",
 			BodyPath: "alertThreshold",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[[]any]{
+			Name:     "category",
+			Usage:    "Updated breakdown of the budget by categories. Existing categories will be updated, new ones added.",
+			BodyPath: "categories",
+		},
+		&requestflag.Flag[any]{
+			Name:     "end-date",
+			Usage:    "Updated end date of the budget period.",
+			BodyPath: "endDate",
+		},
+		&requestflag.Flag[any]{
 			Name:     "name",
+			Usage:    "Updated name of the budget.",
 			BodyPath: "name",
 		},
-		&requestflag.Flag[float64]{
+		&requestflag.Flag[any]{
+			Name:     "start-date",
+			Usage:    "Updated start date of the budget period.",
+			BodyPath: "startDate",
+		},
+		&requestflag.Flag[string]{
+			Name:     "status",
+			Usage:    "Updated status of the budget.",
+			BodyPath: "status",
+		},
+		&requestflag.Flag[any]{
 			Name:     "total-amount",
+			Usage:    "Updated total amount for the entire budget.",
 			BodyPath: "totalAmount",
 		},
 	},
@@ -97,15 +127,15 @@ var budgetsList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a list of all active and historical budgets for the authenticated\nuser.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -117,7 +147,7 @@ var budgetsDelete = cli.Command{
 	Name:  "delete",
 	Usage: "Deletes a specific budget from the user's profile.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "budget-id",
 		},
 	},
@@ -183,7 +213,7 @@ func handleBudgetsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Budgets.Get(ctx, cmd.Value("budget-id").(string), options...)
+	_, err = client.Budgets.Get(ctx, cmd.Value("budget-id").(any), options...)
 	if err != nil {
 		return err
 	}
@@ -222,7 +252,7 @@ func handleBudgetsUpdate(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Budgets.Update(
 		ctx,
-		cmd.Value("budget-id").(string),
+		cmd.Value("budget-id").(any),
 		params,
 		options...,
 	)
@@ -292,5 +322,5 @@ func handleBudgetsDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.Budgets.Delete(ctx, cmd.Value("budget-id").(string), options...)
+	return client.Budgets.Delete(ctx, cmd.Value("budget-id").(any), options...)
 }

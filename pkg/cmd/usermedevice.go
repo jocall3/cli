@@ -19,15 +19,15 @@ var usersMeDevicesList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a list of all devices linked to the user's account, including mobile\nphones, tablets, and desktops, indicating their last active status and security\nposture.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -39,7 +39,7 @@ var usersMeDevicesDeregister = cli.Command{
 	Name:  "deregister",
 	Usage: "Removes a specific device from the user's linked devices, revoking its access\nand requiring re-registration for future use. Useful for lost or compromised\ndevices.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "device-id",
 		},
 	},
@@ -53,24 +53,33 @@ var usersMeDevicesRegister = cli.Command{
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "device-type",
+			Usage:    "Type of the device being registered.",
 			BodyPath: "deviceType",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "model",
+			Usage:    "Model of the device.",
 			BodyPath: "model",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "os",
+			Usage:    "Operating system of the device.",
 			BodyPath: "os",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "biometric-signature",
-			Usage:    "Base64 encoded proof of biometric capability.",
+			Usage:    "Optional: Base64 encoded biometric signature for initial enrollment (e.g., for Passkey registration).",
 			BodyPath: "biometricSignature",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "device-name",
+			Usage:    "Optional: A friendly name for the device.",
 			BodyPath: "deviceName",
+		},
+		&requestflag.Flag[any]{
+			Name:     "push-token",
+			Usage:    "Optional: Push notification token for the device.",
+			BodyPath: "pushToken",
 		},
 	},
 	Action:          handleUsersMeDevicesRegister,
@@ -133,7 +142,7 @@ func handleUsersMeDevicesDeregister(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	return client.Users.Me.Devices.Deregister(ctx, cmd.Value("device-id").(string), options...)
+	return client.Users.Me.Devices.Deregister(ctx, cmd.Value("device-id").(any), options...)
 }
 
 func handleUsersMeDevicesRegister(ctx context.Context, cmd *cli.Command) error {

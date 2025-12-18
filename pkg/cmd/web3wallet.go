@@ -19,15 +19,15 @@ var web3WalletsList = cli.Command{
 	Name:  "list",
 	Usage: "Retrieves a list of all securely linked cryptocurrency wallets (e.g., MetaMask,\nLedger integration), showing their addresses, associated networks, and\nverification status.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -39,22 +39,30 @@ var web3WalletsConnect = cli.Command{
 	Name:  "connect",
 	Usage: "Initiates the process to securely connect a new cryptocurrency wallet to the\nuser's profile, typically involving a signed message or OAuth flow from the\nwallet provider.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "blockchain-network",
+			Usage:    "The blockchain network for this wallet (e.g., Ethereum, Solana).",
 			BodyPath: "blockchainNetwork",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "signed-message",
-			Usage:    "A message signed by the wallet's private key to prove ownership.",
+			Usage:    "A message cryptographically signed by the wallet owner to prove ownership/intent.",
 			BodyPath: "signedMessage",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "wallet-address",
+			Usage:    "The public address of the cryptocurrency wallet.",
 			BodyPath: "walletAddress",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "wallet-provider",
+			Usage:    "The name of the wallet provider (e.g., MetaMask, Phantom).",
 			BodyPath: "walletProvider",
+		},
+		&requestflag.Flag[any]{
+			Name:     "request-write-access",
+			Usage:    "If true, requests write access to initiate transactions from this wallet.",
+			BodyPath: "requestWriteAccess",
 		},
 	},
 	Action:          handleWeb3WalletsConnect,
@@ -65,18 +73,18 @@ var web3WalletsRetrieveBalances = cli.Command{
 	Name:  "retrieve-balances",
 	Usage: "Retrieves the current balances of all recognized crypto assets within a specific\nconnected wallet.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name: "wallet-id",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
-			Usage:     "The maximum number of items to return.",
-			Default:   20,
+			Usage:     "Maximum number of items to return in a single page.",
+			Default:   10,
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "offset",
-			Usage:     "The number of items to skip before starting to collect the result set.",
+			Usage:     "Number of items to skip before starting to collect the result set.",
 			QueryPath: "offset",
 		},
 	},
@@ -180,7 +188,7 @@ func handleWeb3WalletsRetrieveBalances(ctx context.Context, cmd *cli.Command) er
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Web3.Wallets.GetBalances(
 		ctx,
-		cmd.Value("wallet-id").(string),
+		cmd.Value("wallet-id").(any),
 		params,
 		options...,
 	)

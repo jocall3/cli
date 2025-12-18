@@ -15,46 +15,41 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-var aiIncubatorListPitches = cli.Command{
-	Name:  "list-pitches",
-	Usage: "Retrieves a summary list of all business pitches submitted by the authenticated\nuser to Quantum Weaver.",
+var marketplaceOffersRedeem = cli.Command{
+	Name:  "redeem",
+	Usage: "Redeems a personalized, exclusive offer from the Plato AI marketplace, often\nresulting in a discount, special rate, or credit to the user's account.",
 	Flags: []cli.Flag{
 		&requestflag.Flag[any]{
-			Name:      "limit",
-			Usage:     "Maximum number of items to return in a single page.",
-			Default:   10,
-			QueryPath: "limit",
+			Name: "offer-id",
 		},
 		&requestflag.Flag[any]{
-			Name:      "offset",
-			Usage:     "Number of items to skip before starting to collect the result set.",
-			QueryPath: "offset",
-		},
-		&requestflag.Flag[string]{
-			Name:      "status",
-			Usage:     "Filter pitches by their current stage.",
-			QueryPath: "status",
+			Name:     "payment-account-id",
+			Usage:    "Optional: The ID of the account to use for any associated payment or credit.",
+			BodyPath: "paymentAccountId",
 		},
 	},
-	Action:          handleAIIncubatorListPitches,
+	Action:          handleMarketplaceOffersRedeem,
 	HideHelpCommand: true,
 }
 
-func handleAIIncubatorListPitches(ctx context.Context, cmd *cli.Command) error {
+func handleMarketplaceOffersRedeem(ctx context.Context, cmd *cli.Command) error {
 	client := jamesburvelocallaghaniiicitibankdemobusinessinc.NewClient(getDefaultRequestOptions(cmd)...)
 	unusedArgs := cmd.Args().Slice()
-
+	if !cmd.IsSet("offer-id") && len(unusedArgs) > 0 {
+		cmd.Set("offer-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := jamesburvelocallaghaniiicitibankdemobusinessinc.AIIncubatorListPitchesParams{}
+	params := jamesburvelocallaghaniiicitibankdemobusinessinc.MarketplaceOfferRedeemParams{}
 
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		EmptyBody,
+		ApplicationJSON,
 		false,
 	)
 	if err != nil {
@@ -63,7 +58,12 @@ func handleAIIncubatorListPitches(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.AI.Incubator.ListPitches(ctx, params, options...)
+	_, err = client.Marketplace.Offers.Redeem(
+		ctx,
+		cmd.Value("offer-id").(any),
+		params,
+		options...,
+	)
 	if err != nil {
 		return err
 	}
@@ -71,5 +71,5 @@ func handleAIIncubatorListPitches(ctx context.Context, cmd *cli.Command) error {
 	obj := gjson.ParseBytes(res)
 	format := cmd.Root().String("format")
 	transform := cmd.Root().String("transform")
-	return ShowJSON(os.Stdout, "ai:incubator list-pitches", obj, format, transform)
+	return ShowJSON(os.Stdout, "marketplace:offers redeem", obj, format, transform)
 }

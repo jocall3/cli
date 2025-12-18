@@ -19,13 +19,24 @@ var aiOracleSimulateRunAdvanced = cli.Command{
 	Name:  "run-advanced",
 	Usage: "Engages the Quantum Oracle for highly complex, multi-variable simulations,\nallowing precise control over numerous financial parameters, market conditions,\nand personal events to generate deep, predictive insights and sensitivity\nanalysis.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "prompt",
+			Usage:    "A natural language prompt describing the complex, multi-variable scenario.",
 			BodyPath: "prompt",
 		},
 		&requestflag.Flag[[]any]{
 			Name:     "scenario",
 			BodyPath: "scenarios",
+		},
+		&requestflag.Flag[any]{
+			Name:     "global-economic-factors",
+			Usage:    "Optional: Global economic conditions to apply to all scenarios.",
+			BodyPath: "globalEconomicFactors",
+		},
+		&requestflag.Flag[any]{
+			Name:     "personal-assumptions",
+			Usage:    "Optional: Personal financial assumptions to override defaults.",
+			BodyPath: "personalAssumptions",
 		},
 	},
 	Action:          handleAIOracleSimulateRunAdvanced,
@@ -36,14 +47,14 @@ var aiOracleSimulateRunStandard = cli.Command{
 	Name:  "run-standard",
 	Usage: "Submits a hypothetical scenario to the Quantum Oracle AI for standard financial\nimpact analysis. The AI simulates the effect on the user's current financial\nstate and provides a summary.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:     "prompt",
-			Usage:    "A natural language prompt describing the scenario.",
+			Usage:    "A natural language prompt describing the 'what-if' scenario.",
 			BodyPath: "prompt",
 		},
 		&requestflag.Flag[any]{
 			Name:     "parameters",
-			Usage:    "Structured parameters for the simulation.",
+			Usage:    "Optional structured parameters to guide the simulation (e.g., duration, amount, risk tolerance).",
 			BodyPath: "parameters",
 		},
 	},
