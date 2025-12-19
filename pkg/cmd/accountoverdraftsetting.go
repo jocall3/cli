@@ -88,7 +88,7 @@ func handleAccountsOverdraftSettingsRetrieveOverdraftSettings(ctx context.Contex
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Accounts.OverdraftSettings.GetOverdraftSettings(ctx, cmd.Value("account-id").(any), options...)
+	_, err = client.Accounts.OverdraftSettings.GetOverdraftSettings(ctx, interface{}(cmd.Value("account-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -127,7 +127,7 @@ func handleAccountsOverdraftSettingsUpdateOverdraftSettings(ctx context.Context,
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.OverdraftSettings.UpdateOverdraftSettings(
 		ctx,
-		cmd.Value("account-id").(any),
+		interface{}(cmd.Value("account-id").(any)),
 		params,
 		options...,
 	)

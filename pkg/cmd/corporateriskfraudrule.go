@@ -19,12 +19,12 @@ var corporateRiskFraudRulesCreate = cli.Command{
 	Name:  "create",
 	Usage: "Creates a new custom AI-powered fraud detection rule, allowing organizations to\ndefine specific criteria, risk scores, and automated responses to evolving\nthreat landscapes.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "action",
 			Usage:    "Action to take when a fraud rule is triggered.",
 			BodyPath: "action",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "criteria",
 			Usage:    "Criteria that define when a fraud rule should trigger.",
 			BodyPath: "criteria",
@@ -61,12 +61,12 @@ var corporateRiskFraudRulesUpdate = cli.Command{
 		&requestflag.Flag[any]{
 			Name: "rule-id",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "action",
 			Usage:    "Action to take when a fraud rule is triggered.",
 			BodyPath: "action",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "criteria",
 			Usage:    "Criteria that define when a fraud rule should trigger.",
 			BodyPath: "criteria",
@@ -190,7 +190,7 @@ func handleCorporateRiskFraudRulesUpdate(ctx context.Context, cmd *cli.Command) 
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Risk.Fraud.Rules.Update(
 		ctx,
-		cmd.Value("rule-id").(any),
+		interface{}(cmd.Value("rule-id").(any)),
 		params,
 		options...,
 	)
@@ -260,5 +260,5 @@ func handleCorporateRiskFraudRulesDelete(ctx context.Context, cmd *cli.Command) 
 		return err
 	}
 
-	return client.Corporate.Risk.Fraud.Rules.Delete(ctx, cmd.Value("rule-id").(any), options...)
+	return client.Corporate.Risk.Fraud.Rules.Delete(ctx, interface{}(cmd.Value("rule-id").(any)), options...)
 }

@@ -162,7 +162,7 @@ func handleAccountsRetrieveDetails(ctx context.Context, cmd *cli.Command) error 
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Accounts.GetDetails(ctx, cmd.Value("account-id").(any), options...)
+	_, err = client.Accounts.GetDetails(ctx, interface{}(cmd.Value("account-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -235,7 +235,7 @@ func handleAccountsRetrieveStatements(ctx context.Context, cmd *cli.Command) err
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.GetStatements(
 		ctx,
-		cmd.Value("account-id").(any),
+		interface{}(cmd.Value("account-id").(any)),
 		params,
 		options...,
 	)

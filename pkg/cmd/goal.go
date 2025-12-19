@@ -213,7 +213,7 @@ func handleGoalsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Goals.Get(ctx, cmd.Value("goal-id").(any), options...)
+	_, err = client.Goals.Get(ctx, interface{}(cmd.Value("goal-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -252,7 +252,7 @@ func handleGoalsUpdate(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Goals.Update(
 		ctx,
-		cmd.Value("goal-id").(any),
+		interface{}(cmd.Value("goal-id").(any)),
 		params,
 		options...,
 	)
@@ -322,5 +322,5 @@ func handleGoalsDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.Goals.Delete(ctx, cmd.Value("goal-id").(any), options...)
+	return client.Goals.Delete(ctx, interface{}(cmd.Value("goal-id").(any)), options...)
 }

@@ -110,7 +110,7 @@ func handleAIAdsRetrieveStatus(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.AI.Ads.GetStatus(ctx, cmd.Value("operation-id").(any), options...)
+	_, err = client.AI.Ads.GetStatus(ctx, interface{}(cmd.Value("operation-id").(any)), options...)
 	if err != nil {
 		return err
 	}

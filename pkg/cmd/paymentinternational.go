@@ -24,7 +24,7 @@ var paymentsInternationalInitiate = cli.Command{
 			Usage:    "The amount to send in the source currency.",
 			BodyPath: "amount",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "beneficiary",
 			Usage:    "Details of the payment beneficiary.",
 			BodyPath: "beneficiary",
@@ -140,7 +140,7 @@ func handlePaymentsInternationalRetrieveStatus(ctx context.Context, cmd *cli.Com
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Payments.International.GetStatus(ctx, cmd.Value("payment-id").(any), options...)
+	_, err = client.Payments.International.GetStatus(ctx, interface{}(cmd.Value("payment-id").(any)), options...)
 	if err != nil {
 		return err
 	}

@@ -27,17 +27,17 @@ var notificationsSettingsUpdate = cli.Command{
 	Name:  "update",
 	Usage: "Updates the user's notification preferences, allowing control over channels,\nevent types, and quiet hours.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "channel-preferences",
 			Usage:    "Updated preferences for notification delivery channels. Only provided fields are updated.",
 			BodyPath: "channelPreferences",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "event-preferences",
 			Usage:    "Updated preferences for different types of events. Only provided fields are updated.",
 			BodyPath: "eventPreferences",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "quiet-hours",
 			Usage:    "Updated settings for notification quiet hours. Only provided fields are updated.",
 			BodyPath: "quietHours",

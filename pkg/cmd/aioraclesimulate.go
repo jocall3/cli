@@ -24,16 +24,16 @@ var aiOracleSimulateRunAdvanced = cli.Command{
 			Usage:    "A natural language prompt describing the complex, multi-variable scenario.",
 			BodyPath: "prompt",
 		},
-		&requestflag.Flag[[]any]{
+		&requestflag.Flag[[]map[string]any]{
 			Name:     "scenario",
 			BodyPath: "scenarios",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "global-economic-factors",
 			Usage:    "Optional: Global economic conditions to apply to all scenarios.",
 			BodyPath: "globalEconomicFactors",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "personal-assumptions",
 			Usage:    "Optional: Personal financial assumptions to override defaults.",
 			BodyPath: "personalAssumptions",

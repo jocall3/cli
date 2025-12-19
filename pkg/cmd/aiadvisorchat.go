@@ -44,7 +44,7 @@ var aiAdvisorChatSendMessage = cli.Command{
 	Name:  "send-message",
 	Usage: "Initiates or continues a sophisticated conversation with Quantum, the AI\nAdvisor. Quantum can provide advanced financial insights, execute complex tasks\nvia an expanding suite of intelligent tools, and learn from user interactions to\noffer hyper-personalized guidance.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "function-response",
 			Usage:    "Optional: The output from a tool function that the AI previously requested to be executed.",
 			BodyPath: "functionResponse",

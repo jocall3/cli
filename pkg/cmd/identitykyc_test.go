@@ -26,7 +26,7 @@ func TestIdentityKYCSubmit(t *testing.T) {
 		"--document-type", "drivers_license",
 		"--expiration-date", "2030-01-01",
 		"--issue-date", "2020-01-01",
-		"--additional-document", "{}\n",
+		"--additional-document", "{}",
 		"--document-back-image", "base64encoded_image_of_drivers_license_back",
 		"--document-front-image", "base64encoded_image_of_drivers_license_front",
 	)

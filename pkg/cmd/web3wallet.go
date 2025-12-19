@@ -188,7 +188,7 @@ func handleWeb3WalletsRetrieveBalances(ctx context.Context, cmd *cli.Command) er
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Web3.Wallets.GetBalances(
 		ctx,
-		cmd.Value("wallet-id").(any),
+		interface{}(cmd.Value("wallet-id").(any)),
 		params,
 		options...,
 	)

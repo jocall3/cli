@@ -39,7 +39,7 @@ var corporateCardsCreateVirtual = cli.Command{
 	Name:  "create-virtual",
 	Usage: "Creates and issues a new virtual corporate card with specified spending limits,\nmerchant restrictions, and expiration dates, ideal for secure online purchases\nand temporary projects.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "controls",
 			Usage:    "Granular spending controls for a corporate card.",
 			BodyPath: "controls",
@@ -277,7 +277,7 @@ func handleCorporateCardsFreeze(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.Freeze(
 		ctx,
-		cmd.Value("card-id").(any),
+		interface{}(cmd.Value("card-id").(any)),
 		params,
 		options...,
 	)
@@ -319,7 +319,7 @@ func handleCorporateCardsListTransactions(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.ListTransactions(
 		ctx,
-		cmd.Value("card-id").(any),
+		interface{}(cmd.Value("card-id").(any)),
 		params,
 		options...,
 	)
@@ -361,7 +361,7 @@ func handleCorporateCardsUpdateControls(ctx context.Context, cmd *cli.Command) e
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Cards.UpdateControls(
 		ctx,
-		cmd.Value("card-id").(any),
+		interface{}(cmd.Value("card-id").(any)),
 		params,
 		options...,
 	)

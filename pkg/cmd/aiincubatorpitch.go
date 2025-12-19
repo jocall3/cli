@@ -36,12 +36,12 @@ var aiIncubatorPitchSubmit = cli.Command{
 			Usage:    "The user's detailed narrative business plan (e.g., executive summary, vision, strategy).",
 			BodyPath: "businessPlan",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "financial-projections",
 			Usage:    "Key financial metrics and projections for the next 3-5 years.",
 			BodyPath: "financialProjections",
 		},
-		&requestflag.Flag[[]any]{
+		&requestflag.Flag[[]map[string]any]{
 			Name:     "founding-team",
 			Usage:    "Key profiles and expertise of the founding team members.",
 			BodyPath: "foundingTeam",
@@ -63,7 +63,7 @@ var aiIncubatorPitchSubmitFeedback = cli.Command{
 		&requestflag.Flag[any]{
 			Name: "pitch-id",
 		},
-		&requestflag.Flag[[]any]{
+		&requestflag.Flag[[]map[string]any]{
 			Name:     "answer",
 			BodyPath: "answers",
 		},
@@ -101,7 +101,7 @@ func handleAIIncubatorPitchRetrieveDetails(ctx context.Context, cmd *cli.Command
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.AI.Incubator.Pitch.GetDetails(ctx, cmd.Value("pitch-id").(any), options...)
+	_, err = client.AI.Incubator.Pitch.GetDetails(ctx, interface{}(cmd.Value("pitch-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -174,7 +174,7 @@ func handleAIIncubatorPitchSubmitFeedback(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.AI.Incubator.Pitch.SubmitFeedback(
 		ctx,
-		cmd.Value("pitch-id").(any),
+		interface{}(cmd.Value("pitch-id").(any)),
 		params,
 		options...,
 	)

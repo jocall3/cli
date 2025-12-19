@@ -54,7 +54,7 @@ var budgetsCreate = cli.Command{
 			Usage:    "Percentage threshold at which an alert is triggered.",
 			BodyPath: "alertThreshold",
 		},
-		&requestflag.Flag[[]any]{
+		&requestflag.Flag[[]map[string]any]{
 			Name:     "category",
 			Usage:    "Initial breakdown of the budget by categories.",
 			BodyPath: "categories",
@@ -88,7 +88,7 @@ var budgetsUpdate = cli.Command{
 			Usage:    "Updated percentage threshold for alerts.",
 			BodyPath: "alertThreshold",
 		},
-		&requestflag.Flag[[]any]{
+		&requestflag.Flag[[]map[string]any]{
 			Name:     "category",
 			Usage:    "Updated breakdown of the budget by categories. Existing categories will be updated, new ones added.",
 			BodyPath: "categories",
@@ -213,7 +213,7 @@ func handleBudgetsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Budgets.Get(ctx, cmd.Value("budget-id").(any), options...)
+	_, err = client.Budgets.Get(ctx, interface{}(cmd.Value("budget-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -252,7 +252,7 @@ func handleBudgetsUpdate(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Budgets.Update(
 		ctx,
-		cmd.Value("budget-id").(any),
+		interface{}(cmd.Value("budget-id").(any)),
 		params,
 		options...,
 	)
@@ -322,5 +322,5 @@ func handleBudgetsDelete(ctx context.Context, cmd *cli.Command) error {
 		return err
 	}
 
-	return client.Budgets.Delete(ctx, cmd.Value("budget-id").(any), options...)
+	return client.Budgets.Delete(ctx, interface{}(cmd.Value("budget-id").(any)), options...)
 }

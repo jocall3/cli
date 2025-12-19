@@ -58,7 +58,7 @@ var usersRegister = cli.Command{
 			Usage:    "User's chosen password.",
 			BodyPath: "password",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "address",
 			BodyPath: "address",
 		},

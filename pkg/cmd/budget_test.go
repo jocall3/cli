@@ -20,8 +20,8 @@ func TestBudgetsCreate(t *testing.T) {
 		"--total-amount", "2800",
 		"--ai-auto-populate",
 		"--alert-threshold", "75",
-		"--category", "{allocated: 1500, name: Rent}\n",
-		"--category", "{allocated: 400, name: Groceries}\n",
+		"--category", "{allocated: 1500, name: Rent}",
+		"--category", "{allocated: 400, name: Groceries}",
 	)
 }
 
@@ -41,7 +41,7 @@ func TestBudgetsUpdate(t *testing.T) {
 		"budgets", "update",
 		"--budget-id", "budget_monthly_aug",
 		"--alert-threshold", "85",
-		"--category", "{allocated: 550, name: Groceries}\n",
+		"--category", "{allocated: 550, name: Groceries}",
 		"--end-date", "2024-08-31",
 		"--name", "August 2024 Revised Household Budget",
 		"--start-date", "2024-08-01",

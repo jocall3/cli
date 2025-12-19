@@ -177,7 +177,7 @@ func handleTransactionsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Transactions.Get(ctx, cmd.Value("transaction-id").(any), options...)
+	_, err = client.Transactions.Get(ctx, interface{}(cmd.Value("transaction-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -250,7 +250,7 @@ func handleTransactionsCategorize(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.Categorize(
 		ctx,
-		cmd.Value("transaction-id").(any),
+		interface{}(cmd.Value("transaction-id").(any)),
 		params,
 		options...,
 	)
@@ -292,7 +292,7 @@ func handleTransactionsDispute(ctx context.Context, cmd *cli.Command) error {
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.Dispute(
 		ctx,
-		cmd.Value("transaction-id").(any),
+		interface{}(cmd.Value("transaction-id").(any)),
 		params,
 		options...,
 	)
@@ -334,7 +334,7 @@ func handleTransactionsUpdateNotes(ctx context.Context, cmd *cli.Command) error 
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Transactions.UpdateNotes(
 		ctx,
-		cmd.Value("transaction-id").(any),
+		interface{}(cmd.Value("transaction-id").(any)),
 		params,
 		options...,
 	)

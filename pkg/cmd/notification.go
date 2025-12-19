@@ -115,7 +115,7 @@ func handleNotificationsMarkAsRead(ctx context.Context, cmd *cli.Command) error 
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Notifications.MarkAsRead(ctx, cmd.Value("notification-id").(any), options...)
+	_, err = client.Notifications.MarkAsRead(ctx, interface{}(cmd.Value("notification-id").(any)), options...)
 	if err != nil {
 		return err
 	}

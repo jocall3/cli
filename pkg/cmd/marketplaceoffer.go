@@ -60,7 +60,7 @@ func handleMarketplaceOffersRedeem(ctx context.Context, cmd *cli.Command) error 
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Marketplace.Offers.Redeem(
 		ctx,
-		cmd.Value("offer-id").(any),
+		interface{}(cmd.Value("offer-id").(any)),
 		params,
 		options...,
 	)

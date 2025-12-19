@@ -129,7 +129,7 @@ func handleMarketplaceProductsSimulateImpact(ctx context.Context, cmd *cli.Comma
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Marketplace.Products.SimulateImpact(
 		ctx,
-		cmd.Value("product-id").(any),
+		interface{}(cmd.Value("product-id").(any)),
 		params,
 		options...,
 	)

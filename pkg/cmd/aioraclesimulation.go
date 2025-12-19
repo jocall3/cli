@@ -83,7 +83,7 @@ func handleAIOracleSimulationsRetrieve(ctx context.Context, cmd *cli.Command) er
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.AI.Oracle.Simulations.Get(ctx, cmd.Value("simulation-id").(any), options...)
+	_, err = client.AI.Oracle.Simulations.Get(ctx, interface{}(cmd.Value("simulation-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -150,5 +150,5 @@ func handleAIOracleSimulationsDelete(ctx context.Context, cmd *cli.Command) erro
 		return err
 	}
 
-	return client.AI.Oracle.Simulations.Delete(ctx, cmd.Value("simulation-id").(any), options...)
+	return client.AI.Oracle.Simulations.Delete(ctx, interface{}(cmd.Value("simulation-id").(any)), options...)
 }

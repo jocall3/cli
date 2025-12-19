@@ -145,7 +145,7 @@ func handleCorporateAnomaliesUpdateStatus(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Corporate.Anomalies.UpdateStatus(
 		ctx,
-		cmd.Value("anomaly-id").(any),
+		interface{}(cmd.Value("anomaly-id").(any)),
 		params,
 		options...,
 	)

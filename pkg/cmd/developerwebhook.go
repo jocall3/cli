@@ -160,7 +160,7 @@ func handleDevelopersWebhooksUpdate(ctx context.Context, cmd *cli.Command) error
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Developers.Webhooks.Update(
 		ctx,
-		cmd.Value("subscription-id").(any),
+		interface{}(cmd.Value("subscription-id").(any)),
 		params,
 		options...,
 	)
@@ -230,5 +230,5 @@ func handleDevelopersWebhooksDelete(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	return client.Developers.Webhooks.Delete(ctx, cmd.Value("subscription-id").(any), options...)
+	return client.Developers.Webhooks.Delete(ctx, interface{}(cmd.Value("subscription-id").(any)), options...)
 }

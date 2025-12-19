@@ -205,7 +205,7 @@ func handleInvestmentsPortfoliosRetrieve(ctx context.Context, cmd *cli.Command) 
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Investments.Portfolios.Get(ctx, cmd.Value("portfolio-id").(any), options...)
+	_, err = client.Investments.Portfolios.Get(ctx, interface{}(cmd.Value("portfolio-id").(any)), options...)
 	if err != nil {
 		return err
 	}
@@ -244,7 +244,7 @@ func handleInvestmentsPortfoliosUpdate(ctx context.Context, cmd *cli.Command) er
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Investments.Portfolios.Update(
 		ctx,
-		cmd.Value("portfolio-id").(any),
+		interface{}(cmd.Value("portfolio-id").(any)),
 		params,
 		options...,
 	)
@@ -320,7 +320,7 @@ func handleInvestmentsPortfoliosRebalance(ctx context.Context, cmd *cli.Command)
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Investments.Portfolios.Rebalance(
 		ctx,
-		cmd.Value("portfolio-id").(any),
+		interface{}(cmd.Value("portfolio-id").(any)),
 		params,
 		options...,
 	)

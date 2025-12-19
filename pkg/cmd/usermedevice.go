@@ -142,7 +142,7 @@ func handleUsersMeDevicesDeregister(ctx context.Context, cmd *cli.Command) error
 		return err
 	}
 
-	return client.Users.Me.Devices.Deregister(ctx, cmd.Value("device-id").(any), options...)
+	return client.Users.Me.Devices.Deregister(ctx, interface{}(cmd.Value("device-id").(any)), options...)
 }
 
 func handleUsersMeDevicesRegister(ctx context.Context, cmd *cli.Command) error {

@@ -34,7 +34,7 @@ var corporatePerformSanctionScreening = cli.Command{
 			Usage:    "Full name of the individual or organization to screen.",
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "address",
 			BodyPath: "address",
 		},

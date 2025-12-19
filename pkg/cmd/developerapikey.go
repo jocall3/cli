@@ -161,5 +161,5 @@ func handleDevelopersAPIKeysRevoke(ctx context.Context, cmd *cli.Command) error 
 		return err
 	}
 
-	return client.Developers.APIKeys.Revoke(ctx, cmd.Value("key-id").(any), options...)
+	return client.Developers.APIKeys.Revoke(ctx, interface{}(cmd.Value("key-id").(any)), options...)
 }

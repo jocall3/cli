@@ -37,7 +37,7 @@ var usersMePreferencesUpdate = cli.Command{
 			Usage:    "Consent status for sharing anonymized data for AI improvement and personalized offers.",
 			BodyPath: "dataSharingConsent",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "notification-channels",
 			Usage:    "Preferred channels for receiving notifications.",
 			BodyPath: "notificationChannels",

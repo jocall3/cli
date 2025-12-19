@@ -66,7 +66,7 @@ func handleAccountsTransactionsRetrievePending(ctx context.Context, cmd *cli.Com
 	options = append(options, option.WithResponseBodyInto(&res))
 	_, err = client.Accounts.Transactions.GetPending(
 		ctx,
-		cmd.Value("account-id").(any),
+		interface{}(cmd.Value("account-id").(any)),
 		params,
 		options...,
 	)

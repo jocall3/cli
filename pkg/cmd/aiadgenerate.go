@@ -60,7 +60,7 @@ var aiAdsGenerateAdvanced = cli.Command{
 			Usage:    "Optional: Hex color codes to influence the video's aesthetic.",
 			BodyPath: "brandColors",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "call-to-action",
 			Usage:    "Call-to-action text and URL to be displayed.",
 			BodyPath: "callToAction",

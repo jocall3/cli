@@ -14,7 +14,7 @@ func TestAIOracleSimulateRunAdvanced(t *testing.T) {
 		t,
 		"ai:oracle:simulate", "run-advanced",
 		"--prompt", "Evaluate the long-term impact of a sudden job loss combined with a variable market downturn, analyzing worst-case and best-case recovery scenarios over a decade.",
-		"--scenario", "{durationYears: 10, events: [{details: {durationMonths: 6, severanceAmount: 10000, unemploymentBenefits: 2000}, type: job_loss}, {details: {impactPercentage: 0.15, recoveryYears: 3}, type: market_downturn}], name: Job Loss & Mild Market Recovery, sensitivityAnalysisParams: [{max: 0.07, min: 0.03, paramName: marketRecoveryRate, step: 0.01}]}\n",
+		"--scenario", "{durationYears: 10, events: [{details: {durationMonths: 6, severanceAmount: 10000, unemploymentBenefits: 2000}, type: job_loss}, {details: {impactPercentage: 0.15, recoveryYears: 3}, type: market_downturn}], name: Job Loss & Mild Market Recovery, sensitivityAnalysisParams: [{max: 0.07, min: 0.03, paramName: marketRecoveryRate, step: 0.01}]}",
 		"--global-economic-factors", "{inflationRate: 0.03, interestRateBaseline: 0.05}",
 		"--personal-assumptions", "{annualSavingsRate: 0.15, riskTolerance: aggressive}",
 	)

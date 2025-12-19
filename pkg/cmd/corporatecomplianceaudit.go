@@ -119,7 +119,7 @@ func handleCorporateComplianceAuditsRetrieveReport(ctx context.Context, cmd *cli
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Corporate.Compliance.Audits.GetReport(ctx, cmd.Value("audit-id").(any), options...)
+	_, err = client.Corporate.Compliance.Audits.GetReport(ctx, interface{}(cmd.Value("audit-id").(any)), options...)
 	if err != nil {
 		return err
 	}

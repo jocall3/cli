@@ -27,7 +27,7 @@ var usersMeUpdate = cli.Command{
 	Name:  "update",
 	Usage: "Updates selected fields of the currently authenticated user's profile\ninformation.",
 	Flags: []cli.Flag{
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "address",
 			BodyPath: "address",
 		},
@@ -41,7 +41,7 @@ var usersMeUpdate = cli.Command{
 			Usage:    "Updated primary phone number of the user.",
 			BodyPath: "phone",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "preferences",
 			Usage:    "User's personalized preferences for the platform.",
 			BodyPath: "preferences",

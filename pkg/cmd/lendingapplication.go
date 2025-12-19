@@ -51,7 +51,7 @@ var lendingApplicationsSubmit = cli.Command{
 			Usage:    "Optional notes or details for the application.",
 			BodyPath: "additionalNotes",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[map[string]any]{
 			Name:     "co-applicant",
 			Usage:    "Optional: Details of a co-applicant for the loan.",
 			BodyPath: "coApplicant",
@@ -85,7 +85,7 @@ func handleLendingApplicationsRetrieve(ctx context.Context, cmd *cli.Command) er
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
-	_, err = client.Lending.Applications.Get(ctx, cmd.Value("application-id").(any), options...)
+	_, err = client.Lending.Applications.Get(ctx, interface{}(cmd.Value("application-id").(any)), options...)
 	if err != nil {
 		return err
 	}
