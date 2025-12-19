@@ -1,4 +1,4 @@
-module github.com/jocall3/go
+module github.com/jocall3/cli
 
 go 1.22
 

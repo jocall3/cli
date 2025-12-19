@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/jocall3/go/internal/apijson"
-	"github.com/jocall3/go/internal/param"
-	"github.com/jocall3/go/internal/requestconfig"
-	"github.com/jocall3/go/option"
+	"github.com/jocall3/cli/internal/apijson"
+	"github.com/jocall3/cli/internal/param"
+	"github.com/jocall3/cli/internal/requestconfig"
+	"github.com/jocall3/cli/option"
 )
 
 // AIAdGenerateService contains methods and other services that help with

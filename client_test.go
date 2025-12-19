@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jocall3/go"
-	"github.com/jocall3/go/internal"
-	"github.com/jocall3/go/option"
+	"github.com/jocall3/cli"
+	"github.com/jocall3/cli/internal"
+	"github.com/jocall3/cli/option"
 )
 
 type closureTransport struct {

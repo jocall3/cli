@@ -3,7 +3,7 @@
 package jocall3
 
 import (
-	"github.com/jocall3/go/option"
+	"github.com/jocall3/cli/option"
 )
 
 // CorporateRiskFraudService contains methods and other services that help with
