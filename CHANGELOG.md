@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.0 (2025-12-19)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/jocall3/cli/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** manual updates ([093c8c3](https://github.com/jocall3/cli/commit/093c8c3fdae1f7640aec9d2ec26c0e2a3cdd4f7c))
+* **api:** manual updates ([fbd0580](https://github.com/jocall3/cli/commit/fbd05802d673f3adc9b7f7f39018119aa7b2c80f))
+
+
+### Chores
+
+* sync repo ([420b34e](https://github.com/jocall3/cli/commit/420b34e10736152120cafbae615187ef2c2aa34f))
+* update SDK settings ([fe948d9](https://github.com/jocall3/cli/commit/fe948d9618772c9fe25d401731a3c96e85d4c922))
+
 ## 0.2.0 (2025-12-18)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/jocall3/go/compare/v0.1.0...v0.2.0)
