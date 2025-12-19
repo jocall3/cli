@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/jocall3/1231-cli/pkg/cmd"
+	"github.com/jocall3/cli/pkg/cmd"
 	"github.com/jocall3/go"
 	"github.com/tidwall/gjson"
 )

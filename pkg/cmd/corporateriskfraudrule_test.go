@@ -5,7 +5,7 @@ package cmd
 import (
 	"testing"
 
-	"github.com/jocall3/1231-cli/internal/mocktest"
+	"github.com/jocall3/cli/internal/mocktest"
 )
 
 func TestCorporateRiskFraudRulesCreate(t *testing.T) {

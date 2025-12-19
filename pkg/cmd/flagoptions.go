@@ -8,10 +8,10 @@ import (
 	"mime/multipart"
 	"os"
 
-	"github.com/jocall3/1231-cli/internal/apiform"
-	"github.com/jocall3/1231-cli/internal/apiquery"
-	"github.com/jocall3/1231-cli/internal/debugmiddleware"
-	"github.com/jocall3/1231-cli/internal/requestflag"
+	"github.com/jocall3/cli/internal/apiform"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/debugmiddleware"
+	"github.com/jocall3/cli/internal/requestflag"
 	"github.com/jocall3/go/option"
 
 	"github.com/goccy/go-yaml"
