@@ -59,9 +59,9 @@
       "hidden": true
     }
   ],
-  "release-type": "simple",
+  "release-type": "go",
   "extra-files": [
-    "pkg/cmd/version.go",
+    "internal/version.go",
     "README.md"
   ]
 }
