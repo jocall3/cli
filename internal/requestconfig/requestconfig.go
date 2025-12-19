@@ -18,11 +18,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jocall3/go/internal"
-	"github.com/jocall3/go/internal/apierror"
-	"github.com/jocall3/go/internal/apiform"
-	"github.com/jocall3/go/internal/apiquery"
-	"github.com/jocall3/go/internal/param"
+	"github.com/jocall3/cli/internal"
+	"github.com/jocall3/cli/internal/apierror"
+	"github.com/jocall3/cli/internal/apiform"
+	"github.com/jocall3/cli/internal/apiquery"
+	"github.com/jocall3/cli/internal/param"
 )
 
 func getDefaultHeaders() map[string]string {

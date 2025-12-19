@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/jocall3/go"
-	"github.com/jocall3/go/internal/testutil"
-	"github.com/jocall3/go/option"
+	"github.com/jocall3/cli"
+	"github.com/jocall3/cli/internal/testutil"
+	"github.com/jocall3/cli/option"
 )
 
 func TestUsage(t *testing.T) {
