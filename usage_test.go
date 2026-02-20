@@ -23,7 +23,7 @@ func TestUsage(t *testing.T) {
 	client := jocall3.NewClient(
 		option.WithBaseURL(baseURL),
 	)
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	user, err := client.Users.Register(context.TODO(), jocall3.UserRegisterParams{
 		Email:    jocall3.F[any]("alice.w@example.com"),
 		Name:     jocall3.F[any]("Alice Wonderland"),
