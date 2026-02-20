@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.1 (2026-02-20)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/jocall3/cli/compare/v0.3.0...v0.3.1)
+
+### Bug Fixes
+
+* allow canceling a request while it is waiting to retry ([49454c4](https://github.com/jocall3/cli/commit/49454c44f96a29d7045c27e322c4b756a2d9ed79))
+* **docs:** add missing pointer prefix to api.md return types ([1289492](https://github.com/jocall3/cli/commit/12894922bc2b078e334bbd35e4382c735c25b9f7))
+
+
+### Chores
+
+* **internal:** codegen related update ([af4bc81](https://github.com/jocall3/cli/commit/af4bc81b770472acb9c2982e0fa4744c6cb52dd1))
+* **internal:** remove mock server code ([481d039](https://github.com/jocall3/cli/commit/481d03973f8dcd82c46670ef7af818e1af507291))
+* **internal:** update `actions/checkout` version ([f527485](https://github.com/jocall3/cli/commit/f5274853921a3692997cd88a09880c148290b725))
+* update mock server docs ([52825bf](https://github.com/jocall3/cli/commit/52825bfca5bcb725b52f35c37216dce34043a721))
+
 ## 0.3.0 (2025-12-19)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/jocall3/cli/compare/v0.2.0...v0.3.0)
